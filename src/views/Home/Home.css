@@ -1,0 +1,31 @@
+.Home-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.Home-list-container{
+  background-color: blue;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home-container {
+    flex-flow: row wrap;
+    justify-content: left;
+  }
+
+  .Home-list-container{
+    max-width: calc(50% - 40px);
+    margin: 20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .Home-list-container{
+    max-width: 100%;
+  }
+}
