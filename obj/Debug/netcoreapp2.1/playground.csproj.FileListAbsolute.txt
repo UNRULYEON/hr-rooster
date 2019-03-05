@@ -1,0 +1,14 @@
+/Users/amarkisoensingh/Github/playground/bin/Debug/netcoreapp2.1/playground.deps.json
+/Users/amarkisoensingh/Github/playground/bin/Debug/netcoreapp2.1/playground.runtimeconfig.json
+/Users/amarkisoensingh/Github/playground/bin/Debug/netcoreapp2.1/playground.runtimeconfig.dev.json
+/Users/amarkisoensingh/Github/playground/bin/Debug/netcoreapp2.1/playground.dll
+/Users/amarkisoensingh/Github/playground/bin/Debug/netcoreapp2.1/playground.pdb
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.csprojAssemblyReference.cache
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.csproj.CoreCompileInputs.cache
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.RazorAssemblyInfo.cache
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.RazorAssemblyInfo.cs
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.AssemblyInfoInputs.cache
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.AssemblyInfo.cs
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.RazorTargetAssemblyInfo.cache
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.dll
+/Users/amarkisoensingh/Github/playground/obj/Debug/netcoreapp2.1/playground.pdb
