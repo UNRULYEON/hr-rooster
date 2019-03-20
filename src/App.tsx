@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 
 // Components
-// import Onboarding from './components/Onboarding'
+import Onboarding from './components/Onboarding'
 import Home from './views/Home'
 
 // Material Components
@@ -43,9 +43,9 @@ class App extends React.Component<Props, State> {
             <Route path="/" exact component={Home}/>
           </Switch>
         </Router>
-        {/* {localStorage.getItem('onboarding') != null ? null : (
+        {localStorage.getItem('onboarding') != null ? null : (
           <Onboarding />
-        )} */}
+        )}
         <div className="App-settings-container">
           <IconButton aria-label="Help">
             <HelpIcon />
