@@ -47,7 +47,7 @@ namespace hr_rooster
       app.UseMvc(b =>
       {
         b.Select().Expand().Filter().OrderBy().MaxTop(500).Count();
-        b.MapODataServiceRoute("odata", "odata", GetEdmModel());
+        b.MapODataServiceRoute("/", "/", GetEdmModel());
 				b.EnableDependencyInjection();
       });
     }
