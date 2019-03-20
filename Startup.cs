@@ -14,9 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OData.Edm;
-using TodoApi.Models;
+using hr_rooster.Models;
 
-namespace playground
+namespace hr_rooster
 {
   public class Startup
   {
@@ -30,7 +30,7 @@ namespace playground
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<TodoContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddDbContext<IndicesDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
       services.AddOData();
       services.AddMvc();
     }
@@ -46,7 +46,7 @@ namespace playground
       // app.UseHttpsRedirection();
       app.UseMvc(b =>
       {
-        b.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+        b.Select().Expand().Filter().OrderBy().MaxTop(500).Count();
         b.MapODataServiceRoute("odata", "odata", GetEdmModel());
 				b.EnableDependencyInjection();
       });
@@ -55,7 +55,9 @@ namespace playground
     private static IEdmModel GetEdmModel()
     {
       ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-      builder.EntitySet<TodoItem>("Todo");
+      builder.EntitySet<Teachers>("Teacher");
+      builder.EntitySet<Classes>("Class");
+      builder.EntitySet<Rooms>("Room");
       return builder.GetEdmModel();
     }
   }
