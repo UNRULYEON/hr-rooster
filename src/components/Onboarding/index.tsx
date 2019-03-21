@@ -42,7 +42,7 @@ type State = {
   teachersFiltered: Array<any>
 }
 
-const api: string = 'http://api.hr-rooster.nl/';
+const api: string = 'https://api.hr-rooster.nl/';
 
 class Onboarding extends React.Component<Props, State> {
   constructor(props: Props) {
