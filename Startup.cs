@@ -36,15 +36,11 @@ namespace hr_rooster
       services.AddOData();
       services.AddCors(options => {
         options.AddPolicy(MyAllowSpecificOrigins,
-        builder => {
-          builder.WithOrigins(
-            "http://hr-rooster.com",
-            "http://www.hr-rooster.com",
-            "https://hr-rooster.com",
-            "https://www.hr-rooster.com",
-            "http://localhost:3000"
-          );
-        });
+          builder => builder.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials()
+        );
       });
       services.AddMvc();
     }
