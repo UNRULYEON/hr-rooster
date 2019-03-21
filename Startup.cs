@@ -57,7 +57,9 @@ namespace hr_rooster
         app.UseDeveloperExceptionPage();
       }
 
+      app.UseCors(MyAllowSpecificOrigins);
       // app.UseHttpsRedirection();
+
       app.UseMvc(b =>
       {
         b.Select().Expand().Filter().OrderBy().MaxTop(500).Count();
