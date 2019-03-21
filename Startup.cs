@@ -25,6 +25,8 @@ namespace hr_rooster
       Configuration = configuration;
     }
 
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -32,6 +34,18 @@ namespace hr_rooster
     {
       services.AddDbContext<IndicesDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
       services.AddOData();
+      services.AddCors(options => {
+        options.AddPolicy(MyAllowSpecificOrigins,
+        builder => {
+          builder.WithOrigins(
+            "http://hr-rooster.com",
+            "http://www.hr-rooster.com",
+            "https://hr-rooster.com",
+            "https://www.hr-rooster.com",
+            "http://localhost:3000"
+          );
+        });
+      });
       services.AddMvc();
     }
 
