@@ -323,7 +323,7 @@ class Onboarding extends React.Component<Props, State> {
               Back
             </Button>
           ) : (
-            <div></div>
+            <div style={{ width: '74.61px' }}></div>
           )}
         />
       </Dialog>
