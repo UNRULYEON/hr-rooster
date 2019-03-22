@@ -57,14 +57,11 @@ class App extends React.Component<Props, State> {
           teachersWatching: settingsParsed.teachersWatching,
           roomsWatching: settingsParsed.roomsWatching
         })
-        console.log(settings)
       }
     }
   }
 
   saveOnboardingSettings = (userType: string, classCode: string, teacherCode: string) => {
-    console.log(`Saving onboarding settings...`)
-
     let code: string;
     if (userType == "Student") {
       code = classCode;
