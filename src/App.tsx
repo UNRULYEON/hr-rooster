@@ -98,7 +98,16 @@ class App extends React.Component<Props, State> {
         </header>
         <Router>
           <Switch>
-            <Route path="/" exact component={Home}/>
+            {/* <Route path="/" exact component={Home}/> */}
+            <Route path="/"
+              exact
+              render={(props) => <Home
+                {...props}
+                userType={this.state.userType}
+                code={this.state.code}
+                teachersWatching={this.state.teachersWatching}
+                roomsWatching={this.state.roomsWatching}
+            />} />
           </Switch>
         </Router>
         {localStorage.getItem('new_user') != null ? null : (

@@ -2,14 +2,19 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin-top: 50px;
 }
 
 .Home-list-container{
-  background-color: blue;
   height: 100%;
   width: 100%;
   max-width: 500px;
   margin: 20px;
+  text-align: left;
+}
+
+.Home-list-container--subtext{
+  
 }
 
 @media screen and (max-width: 1200px) {
