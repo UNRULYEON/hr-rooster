@@ -20,7 +20,7 @@ class Home extends React.Component<Props, State> {
       <section className="Home-container">
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Today for</span>
-          <ScheduleToday code={this.props.code} />
+          <ScheduleToday code={this.props.code} type={1} />
         </div>
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>

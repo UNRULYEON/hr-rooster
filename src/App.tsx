@@ -5,6 +5,9 @@ import './App.css';
 // Components
 import Onboarding from './components/Onboarding'
 import Home from './views/Home'
+import Class from './views/Class'
+import Teacher from './views/Teacher'
+import Room from './views/Room'
 
 // Material Components
 import IconButton from '@material-ui/core/IconButton';
@@ -107,6 +110,24 @@ class App extends React.Component<Props, State> {
                 code={this.state.code}
                 teachersWatching={this.state.teachersWatching}
                 roomsWatching={this.state.roomsWatching}
+            />} />
+            <Route path="/c/:code"
+              exact
+              render={(props) => <Class
+                {...props}
+                type={1}
+            />} />
+            <Route path="/t/:code"
+              exact
+              render={(props) => <Teacher
+                {...props}
+                type={2}
+            />} />
+            <Route path="/r/:code"
+              exact
+              render={(props) => <Room
+                {...props}
+                type={4}
             />} />
           </Switch>
         </Router>

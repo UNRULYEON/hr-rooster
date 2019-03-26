@@ -11,10 +11,12 @@
   max-width: 500px;
   margin: 20px;
   text-align: left;
+  display: flex;
+  flex-flow: column;
 }
 
 .Home-list-container--subtext{
-  
+
 }
 
 @media screen and (max-width: 1200px) {

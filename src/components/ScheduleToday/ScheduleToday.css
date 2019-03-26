@@ -1,0 +1,59 @@
+.ScheduleToday--title{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.ScheduleToday--container{
+}
+
+.Item--container{
+  padding: 10px;
+  border: 1px solid red;
+  margin: 10px 0;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.Item--line{
+  width: 4px;
+  height: calc(100% + 50px);
+  background-color: #555555;
+  border-radius: 5px;
+  margin: -25px 20px 0 20px;
+}
+
+.Item--dot{
+  /* border-radius: 50%; */
+  /* border: 2px #555555 dotted; */
+  /* width: 20px;
+  height: 20px; */
+  /* background: #212121; */
+  position: relative;
+  top: -75px;
+  left: 12px;
+}
+
+.Item--time{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  margin-right: 40px;
+}
+
+.Item--time-start-period, .Item--time-end-period{
+  color: #555555;
+}
+
+.Item--time-start-time, .Item--time-end-time{
+  font-weight: bold;
+}
+
+.Item--details{
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left;
+}
+
+.Item--details-subject{
+  font-size: 1.5em;
+}
