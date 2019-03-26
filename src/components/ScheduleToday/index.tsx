@@ -4,7 +4,7 @@ import './ScheduleToday.css';
 // Components
 
 type Lesson = {
-  Class: string,
+  Class: string | null,
   Date: Date,
   DayNumber: string,
   EndTime: string,
@@ -73,6 +73,20 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
+  isCurrentLesson = (s: string, e: string) => {
+    let start: number = parseInt(s);
+    let end: number = parseInt(e);
+    let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes()}`);
+    console.log(start)
+    console.log(end)
+    console.log(currentTime)
+    if (start <= currentTime && currentTime <= end) {
+      return "Item--container-current"
+    } else {
+      return ""
+    }
+  }
+
   public render() {
     return (
       <div style={{ width: '-webkit-fill-available' }}>
@@ -82,7 +96,7 @@ class ScheduleToday extends React.Component<Props, State> {
               {this.state.schedule.length > 0 ? (
                 <div className="ScheduleToday--container">
                   {this.state.schedule.map(item => (
-                    <div key={item.LSID} className="Item--container">
+                    <div key={item.LSID} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
                       <div className="Item--time">
                         <div className="Item--time-start">
                           <span className="Item--time-start-period">{item.PeriodStart} - </span>
@@ -93,15 +107,9 @@ class ScheduleToday extends React.Component<Props, State> {
                           <span className="Item--time-end-time">{this.getTime(item.EndTime)}</span>
                         </div>
                       </div>
-                      {/* <div>
+                      <div>
                         <div className="Item--line"></div>
-                        <div className="Item--dot">
-                          <svg width="30" height="30" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="50" r="49" fill="red" stroke="#212121" stroke-width="16" />
-                            <circle cx="50" cy="50" r="46" stroke="#555555" stroke-width="8" stroke-dasharray="0 19" stroke-linecap="round" fill="#212121"/>
-                          </svg>
-                        </div>
-                      </div> */}
+                      </div>
                       <div className="Item--details">
                         <span className="Item--details-subject">{item.Subject}</span>
                         {item.Class == undefined ? (

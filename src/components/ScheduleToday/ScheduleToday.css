@@ -8,7 +8,15 @@
 
 .Item--container{
   padding: 10px;
-  border: 1px solid red;
+  margin: 10px 0;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.Item--container-current{
+  padding: 10px;
+  border: 5px solid rgba(255, 0, 0, 0.6);
+  border-radius: 5px;
   margin: 10px 0;
   display: flex;
   flex-flow: row nowrap;
@@ -37,7 +45,8 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  margin-right: 40px;
+  /* margin-right: 40px; */
+  width: 80px;
 }
 
 .Item--time-start-period, .Item--time-end-period{
@@ -52,6 +61,7 @@
   display: flex;
   flex-flow: column nowrap;
   text-align: left;
+  margin-left: 10px;
 }
 
 .Item--details-subject{
