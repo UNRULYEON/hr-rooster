@@ -3,6 +3,7 @@ import './Home.css';
 
 // Components
 import ScheduleToday from '../../components/ScheduleToday'
+import EmptyState from '../../components/EmptyState'
 
 type Props = {
   userType: string,
@@ -24,22 +25,22 @@ class Home extends React.Component<Props, State> {
         </div>
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>
-          {this.props.teachersWatching.length <= 0 ? (
-            'You\'re not following any teachers'
-          ) : (
+          {this.props.teachersWatching.length > 0 ? (
             <div>
               render list
             </div>
+          ) : (
+            <EmptyState kind={'teacher'} />
           )}
         </div>
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Rooms you're following</span>
-          {this.props.teachersWatching.length <= 0 ? (
-            'You\'re not following any rooms'
-          ) : (
+          {this.props.teachersWatching.length > 0 ? (
             <div>
               render list
             </div>
+          ) : (
+            <EmptyState kind={'room'} />
           )}
         </div>
       </section>

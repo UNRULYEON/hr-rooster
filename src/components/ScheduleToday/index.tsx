@@ -3,6 +3,7 @@ import './ScheduleToday.css';
 
 // Components
 import Loader from '../../components/Loader'
+import EmptyState from '../../components/EmptyState'
 
 // Material-UI
 import LocationOnIcon from '@material-ui/icons/LocationOnRounded';
@@ -127,7 +128,7 @@ class ScheduleToday extends React.Component<Props, State> {
               ) : <Loader />}
             </div>
           ) :
-          'No schedule for today'}
+          <EmptyState kind='no-schedule' />}
       </div>
     )
   }
