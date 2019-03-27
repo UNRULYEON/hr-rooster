@@ -2,6 +2,7 @@ import * as React from 'react';
 import './ScheduleToday.css';
 
 // Components
+import Loader from '../../components/Loader'
 
 // Material-UI
 import LocationOnIcon from '@material-ui/icons/LocationOnRounded';
@@ -123,7 +124,7 @@ class ScheduleToday extends React.Component<Props, State> {
                     </div>
                   ))}
                 </div>
-              ) : "loading..."}
+              ) : <Loader />}
             </div>
           ) :
           'No schedule for today'}
