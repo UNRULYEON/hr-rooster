@@ -1,6 +1,8 @@
 .ScheduleToday--title{
   font-size: 1.5em;
   font-weight: bold;
+  /* text-align: center; */
+  /* display: block; */
 }
 
 .ScheduleToday--container{
@@ -9,13 +11,15 @@
 .Item--container{
   padding: 10px;
   margin: 10px 0;
+  border: 5px solid rgba(204, 0, 0, 0);
   display: flex;
   flex-flow: row nowrap;
 }
 
 .Item--container-current{
   padding: 10px;
-  border: 5px solid rgba(255, 0, 0, 0.6);
+  border: 5px solid rgba(204, 0, 51, 0.6);
+  background-color: rgba(204, 0, 51, 0.1);
   border-radius: 5px;
   margin: 10px 0;
   display: flex;
@@ -47,6 +51,7 @@
   justify-content: space-between;
   /* margin-right: 40px; */
   width: 80px;
+  text-align: left;
 }
 
 .Item--time-start-period, .Item--time-end-period{
@@ -66,4 +71,35 @@
 
 .Item--details-subject{
   font-size: 1.5em;
+}
+
+.Item--details-class-teacher{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.Item--details-room{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.Item--details-icon{
+  font-size: 1em !important;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 900px) {
+  .Item--line{
+    width: 4px;
+    height: calc(100% + 50px);
+    background-color: #555555;
+    border-radius: 5px;
+    margin: -25px 10px 0 10px;
+  }
+
+  .Item--details-subject{
+    font-size: 1.2em;
+  }
 }

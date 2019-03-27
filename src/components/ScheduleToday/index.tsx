@@ -3,6 +3,10 @@ import './ScheduleToday.css';
 
 // Components
 
+// Material-UI
+import LocationOnIcon from '@material-ui/icons/LocationOnRounded';
+import ClassIcon from '@material-ui/icons/ClassRounded';
+
 type Lesson = {
   Class: string | null,
   Date: Date,
@@ -77,9 +81,6 @@ class ScheduleToday extends React.Component<Props, State> {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
     let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes()}`);
-    console.log(start)
-    console.log(end)
-    console.log(currentTime)
     if (start <= currentTime && currentTime <= end) {
       return "Item--container-current"
     } else {
@@ -115,9 +116,9 @@ class ScheduleToday extends React.Component<Props, State> {
                         {item.Class == undefined ? (
                           <span className="Item--details-class-teacher">{item.Teacher.toUpperCase()}</span>
                         ) : (
-                          <span className="Item--details-class-teacher">{item.Class.toUpperCase()} - {item.Teacher.toUpperCase()}</span>
+                          <span className="Item--details-class-teacher"><ClassIcon className="Item--details-icon" />{item.Class.toUpperCase()} - {item.Teacher.toUpperCase()}</span>
                         )}
-                        <span className="Item--details-room">{item.room.code}</span>
+                        <span className="Item--details-room"><LocationOnIcon className="Item--details-icon" />{item.room.code}</span>
                       </div>
                     </div>
                   ))}

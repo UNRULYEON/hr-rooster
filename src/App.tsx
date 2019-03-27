@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 
 // Components
@@ -92,44 +92,48 @@ class App extends React.Component<Props, State> {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-header-logo" alt="logo" />
-          <div className="spacer-horizontal" />
-          <IconButton aria-label="Delete">
-            <SearchIcon />
-          </IconButton>
-        </header>
         <Router>
-          <Switch>
-            {/* <Route path="/" exact component={Home}/> */}
-            <Route path="/"
-              exact
-              render={(props) => <Home
-                {...props}
-                userType={this.state.userType}
-                code={this.state.code}
-                teachersWatching={this.state.teachersWatching}
-                roomsWatching={this.state.roomsWatching}
-            />} />
-            <Route path="/c/:code"
-              exact
-              render={(props) => <Class
-                {...props}
-                type={1}
-            />} />
-            <Route path="/t/:code"
-              exact
-              render={(props) => <Teacher
-                {...props}
-                type={2}
-            />} />
-            <Route path="/r/:code"
-              exact
-              render={(props) => <Room
-                {...props}
-                type={4}
-            />} />
-          </Switch>
+          <div>
+            <header className="App-header">
+              <Link to="/">
+                <img src={logo} className="App-header-logo" alt="logo" />
+              </Link>
+              <div className="spacer-horizontal" />
+              <IconButton aria-label="Delete">
+                <SearchIcon />
+              </IconButton>
+            </header>
+            <Switch>
+              {/* <Route path="/" exact component={Home}/> */}
+              <Route path="/"
+                exact
+                render={(props) => <Home
+                  {...props}
+                  userType={this.state.userType}
+                  code={this.state.code}
+                  teachersWatching={this.state.teachersWatching}
+                  roomsWatching={this.state.roomsWatching}
+              />} />
+              <Route path="/c/:code"
+                exact
+                render={(props) => <Class
+                  {...props}
+                  type={1}
+              />} />
+              <Route path="/t/:code"
+                exact
+                render={(props) => <Teacher
+                  {...props}
+                  type={2}
+              />} />
+              <Route path="/r/:code"
+                exact
+                render={(props) => <Room
+                  {...props}
+                  type={4}
+              />} />
+            </Switch>
+          </div>
         </Router>
         {localStorage.getItem('new_user') != null ? null : (
           <Onboarding saveOnboardingSettings={this.saveOnboardingSettings} />
