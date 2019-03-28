@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from "react-router-dom";
 import './ScheduleToday.css';
 
 // Components
@@ -118,9 +119,9 @@ class ScheduleToday extends React.Component<Props, State> {
                       <div className="Item--details">
                         <span className="Item--details-subject">{item.Subject}</span>
                         {item.Class == undefined ? (
-                          <span className="Item--details-class-teacher">{item.Teacher.toUpperCase()}</span>
+                          <span className="Item--details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
                         ) : (
-                          <span className="Item--details-class-teacher"><ClassIcon className="Item--details-icon" />{item.Class.toUpperCase()} - {item.Teacher.toUpperCase()}</span>
+                          <span className="Item--details-class-teacher"><ClassIcon className="Item--details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
                         )}
                         <span className="Item--details-room"><LocationOnIcon className="Item--details-icon" />{item.room.code}</span>
                       </div>

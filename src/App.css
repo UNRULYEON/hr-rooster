@@ -29,3 +29,8 @@
 .App-settings-container > button:first-child{
   margin-right: 10px;
 }
+
+a{
+  color: inherit;
+  text-decoration-line: none;
+}
