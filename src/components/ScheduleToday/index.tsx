@@ -51,6 +51,27 @@ class ScheduleToday extends React.Component<Props, State> {
     schedule: []
   };
 
+  componentDidMount = () => {
+    let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+    let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
+    console.log(url)
+    fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
+      .then(data => {
+        console.log(data.lesson)
+        if (data.lesson == null) {
+          console.log(`no schedule for today`)
+          this.setState({
+            schedule: null
+          })
+        } else {
+          this.setState({
+            schedule: data.lesson
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
   componentWillReceiveProps = (nextProps: Readonly<Props>) => {
     let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
     let url: string = `https://cors-anywhere.herokuapp.com/${api}${nextProps.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
