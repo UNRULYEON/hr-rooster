@@ -83,7 +83,7 @@ class ScheduleToday extends React.Component<Props, State> {
   isCurrentLesson = (s: string, e: string) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
-    let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes()}`);
+    let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes() < 10 ? "0" +  new Date().getMinutes() : new Date().getMinutes() }`);
     if (start <= currentTime && currentTime <= end) {
       return "Item--container-current"
     } else {
