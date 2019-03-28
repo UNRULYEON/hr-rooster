@@ -54,12 +54,20 @@
   text-align: left;
 }
 
+.Item--time-start, .Item--time-end {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .Item--time-start-period, .Item--time-end-period{
   color: #555555;
 }
 
 .Item--time-start-time, .Item--time-end-time{
   font-weight: bold;
+  text-align: right;
+  width: 45px;
 }
 
 .Item--details{

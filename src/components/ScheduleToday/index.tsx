@@ -102,11 +102,13 @@ class ScheduleToday extends React.Component<Props, State> {
                     <div key={item.LSID} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
                       <div className="Item--time">
                         <div className="Item--time-start">
-                          <span className="Item--time-start-period">{item.PeriodStart} - </span>
+                          <span className="Item--time-start-period">{item.PeriodStart}</span>
+                          <span>-</span>
                           <span className="Item--time-start-time">{this.getTime(item.StartTime)}</span>
                         </div>
                         <div className="Item--time-end">
-                          <span className="Item--time-end-period">{item.PeriodEnd} - </span>
+                          <span className="Item--time-end-period">{item.PeriodEnd}</span>
+                          <span>-</span>
                           <span className="Item--time-end-time">{this.getTime(item.EndTime)}</span>
                         </div>
                       </div>

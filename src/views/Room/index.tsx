@@ -14,7 +14,7 @@ type State = {}
 class Room extends React.Component<Props, State> {
   public render() {
     return (
-      <section className="Class-container">
+      <section className="Room-container">
         <ScheduleToday code={this.props.match.params.code} type={this.props.type} />
       </section>
     )
