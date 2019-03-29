@@ -101,6 +101,19 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
+  getLink = () => {
+    switch (this.props.type) {
+      case 1:
+        return "c"
+      case 2:
+        return "t"
+      case 4:
+        return "r"
+      default:
+        return ""
+    }
+  }
+
   isCurrentLesson = (s: string, e: string) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
@@ -115,7 +128,7 @@ class ScheduleToday extends React.Component<Props, State> {
   public render() {
     return (
       <div style={{ width: '-webkit-fill-available' }}>
-        <span className="ScheduleToday--title">{this.props.code.toUpperCase()}</span>
+        <span className="ScheduleToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
             <div>
               {this.state.schedule.length > 0 ? (
