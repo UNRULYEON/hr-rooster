@@ -121,7 +121,7 @@ class ScheduleToday extends React.Component<Props, State> {
               {this.state.schedule.length > 0 ? (
                 <div className="ScheduleToday--container">
                   {this.state.schedule.map(item => (
-                    <div key={item.LSID} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
+                    <div key={`${item.LSID}-${item.StartTime}`} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
                       <div className="Item--time">
                         <div className="Item--time-start">
                           <span className="Item--time-start-period">{item.PeriodStart}</span>
