@@ -138,14 +138,10 @@
   margin: 0 !important;
 }
 
-.ScheduleWeek--week-view-item-subject{
+.ScheduleWeek--week-view-item-subject{}
 
-}
-
-.ScheduleWeek--week-view-item-class-teacher{
-  font-size: .8em;
-}
-
+.ScheduleWeek--week-view-item-text,
+.ScheduleWeek--week-view-item-class-teacher,
 .ScheduleWeek--week-view-item-room{
   font-size: .8em;
 }

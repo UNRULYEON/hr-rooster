@@ -187,6 +187,7 @@ class ScheduleWeek extends React.Component<Props, State> {
             }}
           >
             <span className="ScheduleWeek--week-view-item-subject">{week[i][j].Subject} {same > 1 ? `+${same}` : null}</span>
+            <span className="ScheduleWeek--week-view-item-text">{week[i][j].Text}</span>
             <span className="ScheduleWeek--week-view-item-class-teacher">{week[i][j].Class} - {week[i][j].Teacher}</span>
             <span className="ScheduleWeek--week-view-item-room">{week[i][j].room.code}</span>
           </div>
