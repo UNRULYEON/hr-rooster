@@ -3,6 +3,7 @@ import './Class.css';
 
 // Components
 import ScheduleToday from '../../components/ScheduleToday'
+import ScheduleWeek from '../../components/ScheduleWeek'
 
 type Props = {
   match: any,
@@ -16,6 +17,7 @@ class Class extends React.Component<Props, State> {
     return (
       <section className="Class-container">
         <ScheduleToday code={this.props.match.params.code} type={this.props.type} />
+        <ScheduleWeek code={this.props.match.params.code} type={this.props.type} />
       </section>
     )
   }
