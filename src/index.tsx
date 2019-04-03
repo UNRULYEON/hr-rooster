@@ -5,6 +5,8 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import LuxonUtils from '@date-io/luxon';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,9 +28,11 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <App />
-  </MuiThemeProvider>,
+  <MuiPickersUtilsProvider utils={LuxonUtils}>
+    <MuiThemeProvider theme={theme} >
+      <App />
+    </MuiThemeProvider>
+  </MuiPickersUtilsProvider>,
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

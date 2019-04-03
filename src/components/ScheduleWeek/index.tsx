@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
+// Material UI Pickers
+import { InlineDatePicker } from "material-ui-pickers";
+
 type Props = {
   code: string,
   type: number,
@@ -21,6 +24,7 @@ type State = {
   thursday: Array<any>,
   friday: Array<any>,
   loading: boolean,
+  currentDate: Date,
 }
 
 const api: string | undefined = process.env.REACT_APP_API;
@@ -32,7 +36,8 @@ class ScheduleWeek extends React.Component<Props, State> {
     wednesday: [],
     thursday: [],
     friday: [],
-    loading: true
+    loading: true,
+    currentDate: new Date()
   };
 
   componentDidMount = () => {
@@ -40,7 +45,7 @@ class ScheduleWeek extends React.Component<Props, State> {
   }
 
   getDate = (date: Date) => {
-    let dates: Array<string> = this.getWeekDates(date)
+    let dates: Array<string> = this.getWeekDates(this.state.currentDate)
     let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
     fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
       .then(data => {
@@ -204,7 +209,7 @@ class ScheduleWeek extends React.Component<Props, State> {
         arr.push(
           <div
             key={`c${i}-p${j}`}
-            className={`ScheduleWeek--week-view-background ${j == 16 ? 'sw-bg-b' : ''} ${i == 6 ? 'sw-bg-r' : ''}`}
+            className={`ScheduleWeek--week-view-background c${i}-r${j} ${j == 16 ? 'sw-bg-b' : ''} ${i == 6 ? 'sw-bg-r' : ''} ${j == 1 ? 'sw-bg-header' : ''} ${i == 1 ? 'sw-bg-time' : ''}`}
             style={{gridColumnStart: i, gridColumnEnd: i, gridRowStart: j, gridRowEnd: j
           }}></div>
         )
@@ -213,13 +218,26 @@ class ScheduleWeek extends React.Component<Props, State> {
     return arr
   }
 
+  handleDateChange = (date: any) => {
+    console.log(date)
+    this.setState({
+      currentDate: date
+    })
+  }
+
   public render() {
     return (
       <div className="ScheduleWeek--container">
         <div className="ScheduleWeek--top-bar">
-          <Button className="ScheduleWeek--previous-week-button"><KeyboardArrowLeft />Previous week</Button>
-          <Button className="ScheduleWeek--current-date-button">CURRENT DATE</Button>
-          <Button className="ScheduleWeek--next-week-button">Next week<KeyboardArrowRight /></Button>
+          <Button className="ScheduleWeek--previous-week-button"><KeyboardArrowLeft /></Button>
+          <InlineDatePicker
+            onlyCalendar
+            variant="outlined"
+            className="ScheduleWeek--current-date-button"
+            value={this.state.currentDate}
+            onChange={this.handleDateChange}
+          />
+          <Button className="ScheduleWeek--next-week-button"><KeyboardArrowRight /></Button>
         </div>
         <div className="ScheduleWeek--week-view-container">
           {this.getSchedBorders()}
