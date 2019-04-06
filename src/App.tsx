@@ -120,18 +120,6 @@ class App extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate = () => {
-    console.log(`component did updated - app`)
-  }
-
-  componentWillReceiveProps = () => {
-    console.log(`component recieved props - app`)
-  }
-
-  componentWillUpdate = () => {
-    console.log(`component will update - app`)
-  }
-
   saveOnboardingSettings = (userType: string, classCode: string, teacherCode: string) => {
     let code: string;
     if (userType == "Student") {

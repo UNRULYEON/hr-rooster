@@ -18,23 +18,11 @@ class Search extends React.Component<Props, State> {
   }
 
   componentWillUnmount = () => {
-    console.log(`component will unmount - search`)
     if (this.props.searchbar) {
       this.props.toggleSearchbar()
     }
   }
 
-  componentDidUpdate = () => {
-    console.log(`component did updated - search`)
-  }
-
-  componentWillReceiveProps = () => {
-    console.log(`component recieved props - search`)
-  }
-
-  componentWillUpdate = () => {
-    console.log(`component will update - search`)
-  }
   public render() {
     return (
       <section className="Search-container">
