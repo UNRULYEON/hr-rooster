@@ -12,8 +12,14 @@ import Room from './views/Room'
 // Material Components
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/SearchRounded';
+import CloseIcon from '@material-ui/icons/CloseRounded';
 import HelpIcon from '@material-ui/icons/HelpRounded';
 import SettingsIcon from '@material-ui/icons/SettingsRounded';
+// import TextField from '@material-ui/core/TextField';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+// Pose
+import posed from 'react-pose';
 
 // Images
 import logo from './img/svg/hr-logo.svg';
@@ -33,10 +39,38 @@ interface State {
   code: string,
   schedule: [],
   teachersWatching: [],
-  roomsWatching: []
+  roomsWatching: [],
+  searchbar: boolean,
+  query: string,
 }
 
+const Searchbar = posed.div({
+  visible: {
+    opacity: 1,
+    applyAtStart: { display: 'flex' },
+    transition: {
+      default: { ease: 'easeInOut', duration: 150 }
+    }
+  },
+  hidden: {
+    opacity: 0,
+    applyAtEnd: { display: 'none' },
+    transition: {
+      default: { ease: 'easeInOut', duration: 150 }
+    }
+  }
+});
+
+const themeSearchbar = createMuiTheme({
+  palette: {
+    primary: { main: '#000000' }, // Purple and green play nicely together.
+    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+  },
+  typography: { useNextVariants: true },
+});
+
 class App extends React.Component<Props, State> {
+  searchbarInput: HTMLInputElement | null;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -44,7 +78,9 @@ class App extends React.Component<Props, State> {
       code: '',
       schedule: [],
       teachersWatching: [],
-      roomsWatching: []
+      roomsWatching: [],
+      searchbar: false,
+      query: ''
     };
   }
 
@@ -89,6 +125,23 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('settings', JSON.stringify(settings));
   }
 
+  handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      [name]: event.target.value,
+    } as unknown as Pick<State, keyof State>);
+  };
+
+  toggleSearchBar = () => {
+    this.setState({
+      searchbar: !this.state.searchbar
+    })
+    if (this.searchbarInput) {
+      this.searchbarInput.focus()
+      console.log(this.searchbarInput)
+      console.log('focussing search bar input')
+    }
+  }
+
   public render() {
     return (
       <div className="App">
@@ -99,9 +152,37 @@ class App extends React.Component<Props, State> {
                 <img src={logo} className="App-header-logo" alt="logo" />
               </Link>
               <div className="spacer-horizontal" />
-              <IconButton aria-label="Delete">
+              <IconButton aria-label="Search" onClick={this.toggleSearchBar}>
                 <SearchIcon />
               </IconButton>
+                <Searchbar
+                  className="App-header-searchbar-container"
+                  pose={this.state.searchbar ? 'visible' : 'hidden'}
+                >
+                  <MuiThemeProvider theme={themeSearchbar}>
+                    {/* <TextField
+                      className="App-header-searchbar-input"
+                      color="inherit"
+                      placeholder="Search..."
+                      type="search"
+                      value={this.state.query}
+                      onChange={this.handleChange('query')}
+                      margin="none"
+                    /> */}
+                    <input
+                      className="App-header-searchbar-input"
+                      placeholder="Search"
+                      type="search"
+                      value={this.state.query}
+                      onChange={this.handleChange('query')}
+                      ref={(input) => { this.searchbarInput = input; }}
+                    />
+                    <div className="spacer-horizontal" />
+                    <IconButton style={{ marginLeft: '16px' }} aria-label="Search" color="inherit" onClick={this.toggleSearchBar}>
+                      <CloseIcon />
+                    </IconButton>
+                  </MuiThemeProvider>
+                </Searchbar>
             </header>
             <Switch>
               {/* <Route path="/" exact component={Home}/> */}
