@@ -42,8 +42,7 @@ interface State {
   teachersWatching: [],
   roomsWatching: [],
   searchbar: boolean,
-  query: string,
-  searchResults: []
+  query: string
 }
 
 const Searchbar = posed.div({
@@ -90,6 +89,7 @@ const themeSearchbar = createMuiTheme({
 
 class App extends React.Component<Props, State> {
   searchbarInput: HTMLInputElement | null;
+  searchPage: any;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -99,9 +99,9 @@ class App extends React.Component<Props, State> {
       teachersWatching: [],
       roomsWatching: [],
       searchbar: false,
-      query: '',
-      searchResults: []
+      query: ''
     };
+    this.searchPage = React.createRef();
   }
 
   componentDidMount = () => {
@@ -154,29 +154,32 @@ class App extends React.Component<Props, State> {
   toggleSearchbarAndRedirect = (history: any) => {
     if (!this.state.searchbar) {
       // Go to search
-      console.log(history.location.pathname)
-      history.push('/search')
+      history.push('/s')
       this.setState({
         searchbar: !this.state.searchbar
       })
       if (this.searchbarInput) {
         this.searchbarInput.focus()
-        console.log(this.searchbarInput)
-        console.log('focussing search bar input')
       }
     } else {
       // Go to previous page
-      console.log(history.location.pathname)
-      history.goBack()
       this.setState({
-        searchbar: !this.state.searchbar
+        query: ''
       })
+      history.replace('/')
+    }
+  }
+
+  keyPress = (e: any) => {
+		if(e.keyCode === 13){
+      console.log('value:', e.target.value);
+      this.searchPage.current.eQ()
     }
   }
 
   toggleSearchbar = () => {
     this.setState({
-      searchbar: !this.state.searchbar
+      searchbar: !this.state.searchbar,
     })
   }
 
@@ -186,6 +189,7 @@ class App extends React.Component<Props, State> {
         <Router>
           <div>
             <Route
+              path="/"
               children={({ history }) => (
                 <header className="App-header">
                   <Link to="/">
@@ -221,6 +225,7 @@ class App extends React.Component<Props, State> {
                         type="search"
                         value={this.state.query}
                         onChange={this.handleChange('query')}
+                        onKeyDown={this.keyPress}
                         ref={(input) => { this.searchbarInput = input; }}
                       />
                       <div className="spacer-horizontal" />
@@ -264,12 +269,13 @@ class App extends React.Component<Props, State> {
                   {...props}
                   type={4}
               />} />
-              <Route path="/search"
+              <Route path={['/s', '/s/:q']}
                 exact
                 render={(props) => <Search
                   searchbar={this.state.searchbar}
-                  query={this.state.query}
+                  q={this.state.query}
                   toggleSearchbar={this.toggleSearchbar}
+                  ref={this.searchPage}
                   {...props}
               />} />
             </Switch>
