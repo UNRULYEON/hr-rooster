@@ -180,6 +180,7 @@ class App extends React.Component<Props, State> {
   toggleSearchbar = () => {
     this.setState({
       searchbar: !this.state.searchbar,
+      query: ''
     })
   }
 
