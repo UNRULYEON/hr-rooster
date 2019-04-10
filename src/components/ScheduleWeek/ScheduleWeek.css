@@ -227,6 +227,7 @@
   .ScheduleWeek--week-view-item-class-teacher,
   .ScheduleWeek--week-view-item-room{
     font-size: .6em;
+    overflow: hidden;
   }
 }
 
