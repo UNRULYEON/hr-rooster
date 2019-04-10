@@ -15,7 +15,6 @@
 }
 
 .Home-list-container--subtext{
-
 }
 
 @media screen and (max-width: 1200px) {
@@ -26,7 +25,7 @@
 
   .Home-list-container{
     max-width: calc(50% - 40px);
-    margin: 20px;
+    margin-top: 20px;
   }
 }
 
@@ -36,8 +35,13 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 800px) {
   .Home-list-container{
     max-width: 100%;
+    margin: 20px 0 0 0;
+  }
+  .Home-list-container--subtext{
+    margin-left: 20px;
   }
 }
+
