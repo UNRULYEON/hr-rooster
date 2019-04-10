@@ -54,27 +54,34 @@ class ScheduleWeek extends React.Component<Props, State> {
         let wednesday: Array<any> = [];
         let thursday: Array<any> = [];
         let friday: Array<any> = [];
-        for (let i = 0; i < data.lesson.length; i++) {
-          switch (data.lesson[i].DayNumber) {
-            case "1":
-              monday.push(data.lesson[i])
-              break;
-            case "2":
-              tuesday.push(data.lesson[i])
-              break;
-            case "3":
-              wednesday.push(data.lesson[i])
-              break;
-            case "4":
-              thursday.push(data.lesson[i])
-              break;
-            case "5":
-              friday.push(data.lesson[i])
-              break;
+        if (data.lesson != null) {
+          for (let i = 0; i < data.lesson.length; i++) {
+            switch (data.lesson[i].DayNumber) {
+              case "1":
+                monday.push(data.lesson[i])
+                break;
+              case "2":
+                tuesday.push(data.lesson[i])
+                break;
+              case "3":
+                wednesday.push(data.lesson[i])
+                break;
+              case "4":
+                thursday.push(data.lesson[i])
+                break;
+              case "5":
+                friday.push(data.lesson[i])
+                break;
+            }
           }
-        }
-        if (data.lesson == null) {
-          console.log(`no schedule for today`)
+          this.setState({
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            loading: false,
+          })
         } else {
           this.setState({
             monday,
