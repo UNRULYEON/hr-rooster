@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 
 // Components
@@ -61,23 +62,6 @@ const Searchbar = posed.div({
     }
   }
 });
-
-const SearchResults = posed.div({
-  visible: {
-    opacity: 1,
-    applyAtStart: { display: 'flex' },
-    transition: {
-      default: { ease: 'easeInOut', duration: 150 }
-    }
-  },
-  hidden: {
-    opacity: 0,
-    applyAtEnd: { display: 'none' },
-    transition: {
-      default: { ease: 'easeInOut', duration: 150 }
-    }
-  }
-})
 
 const themeSearchbar = createMuiTheme({
   palette: {
@@ -238,48 +222,54 @@ class App extends React.Component<Props, State> {
                 </header>
               )}
             />
-            <SearchResults>
-
-            </SearchResults>
-            <Switch>
-              {/* <Route path="/" exact component={Home}/> */}
-              <Route path="/"
-                exact
-                render={(props) => <Home
-                  {...props}
-                  userType={this.state.userType}
-                  code={this.state.code}
-                  teachersWatching={this.state.teachersWatching}
-                  roomsWatching={this.state.roomsWatching}
-              />} />
-              <Route path="/c/:code"
-                exact
-                render={(props) => <Class
-                  {...props}
-                  type={1}
-              />} />
-              <Route path="/t/:code"
-                exact
-                render={(props) => <Teacher
-                  {...props}
-                  type={2}
-              />} />
-              <Route path="/r/:code"
-                exact
-                render={(props) => <Room
-                  {...props}
-                  type={4}
-              />} />
-              <Route path={['/s', '/s/:q']}
-                exact
-                render={(props) => <Search
-                  searchbar={this.state.searchbar}
-                  q={this.state.query}
-                  toggleSearchbar={this.toggleSearchbar}
-                  ref={this.searchPage}
-                  {...props}
-              />} />
-            </Switch>
+            <Route render={({location}) => (
+              <TransitionGroup>
+                <CSSTransition
+                  key={location.key}
+                  timeout={350}
+                  classNames="fade"
+                >
+                  <Switch location={location}>
+                    <Route path="/"
+                      exact
+                      render={(props) => <Home
+                        {...props}
+                        userType={this.state.userType}
+                        code={this.state.code}
+                        teachersWatching={this.state.teachersWatching}
+                        roomsWatching={this.state.roomsWatching}
+                    />} />
+                    <Route path="/c/:code"
+                      exact
+                      render={(props) => <Class
+                        {...props}
+                        type={1}
+                    />} />
+                    <Route path="/t/:code"
+                      exact
+                      render={(props) => <Teacher
+                        {...props}
+                        type={2}
+                    />} />
+                    <Route path="/r/:code"
+                      exact
+                      render={(props) => <Room
+                        {...props}
+                        type={4}
+                    />} />
+                    <Route path={['/s', '/s/:q']}
+                      exact
+                      render={(props) => <Search
+                        searchbar={this.state.searchbar}
+                        q={this.state.query}
+                        toggleSearchbar={this.toggleSearchbar}
+                        ref={this.searchPage}
+                        {...props}
+                    />} />
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            )} />
           </div>
         </Router>
         {localStorage.getItem('new_user') != null ? null : (

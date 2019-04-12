@@ -2,6 +2,13 @@
   margin-bottom: 60px;
 }
 
+.App > div > div > section {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+}
+
 .App-header {
   background-color: #CC0033;
   height: 64px;
@@ -55,4 +62,24 @@
 a{
   color: inherit;
   text-decoration-line: none;
+}
+
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 150ms ease-in-out 150ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
 }

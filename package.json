@@ -24,6 +24,7 @@
     "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
+    "react-transition-group": "^2.9.0",
     "serve": "^10.1.2"
   },
   "scripts": {
