@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from "react-router-dom";
 import './ScheduleWeek.css';
 
 //Components
@@ -8,6 +9,16 @@ import Loader from '../../components/Loader'
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import WeekViewIcon from '@material-ui/icons/CalendarTodayRounded';
+import ListIcon from '@material-ui/icons/ListRounded';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 
 // Material UI Pickers
 import { InlineDatePicker } from "material-ui-pickers";
@@ -25,6 +36,7 @@ type State = {
   friday: Array<any>,
   loading: boolean,
   currentDate: Date,
+  tab: number,
 }
 
 const api: string | undefined = process.env.REACT_APP_API;
@@ -38,6 +50,7 @@ class ScheduleWeek extends React.Component<Props, State> {
     friday: [],
     loading: true,
     currentDate: new Date(),
+    tab: 0,
   };
 
   componentDidMount = () => {
@@ -170,7 +183,7 @@ class ScheduleWeek extends React.Component<Props, State> {
     return item
   }
 
-  isCurrentLesson = (s: string, e: string) => {
+  isCurrentLessonWeek = (s: string, e: string) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
     let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes() < 10 ? "0" +  new Date().getMinutes() : new Date().getMinutes() }`);
@@ -199,7 +212,7 @@ class ScheduleWeek extends React.Component<Props, State> {
             key={week[i][j].LSID + week[i][j].Date}
             className={`
               ScheduleWeek--week-view-item sw-d${i + 1}
-              ${new Date(week[i][j].Date).getDate() == new Date().getDate() ? this.isCurrentLesson(week[i][j].StartTime, week[i][j].EndTime) : ''}
+              ${new Date(week[i][j].Date).getDate() == new Date().getDate() ? this.isCurrentLessonWeek(week[i][j].StartTime, week[i][j].EndTime) : ''}
             `}
             style={{
               gridColumnStart: parseInt(week[i][j].DayNumber) + 1,
@@ -249,6 +262,14 @@ class ScheduleWeek extends React.Component<Props, State> {
     return arr
   }
 
+  getListTime = (time: string) => {
+    if(time.length < 4) {
+      return `${time.substring(0,1)}:${time.substring(1,3)}`
+    } else {
+      return `${time.substring(0,2)}:${time.substring(2,4)}`
+    }
+  }
+
   handleDateChange = (date: any) => {
     this.setState({
       currentDate: new Date(date),
@@ -275,6 +296,10 @@ class ScheduleWeek extends React.Component<Props, State> {
     this.getDate(newDate)
   }
 
+  handleTabChange = (event: any, tab: any) => {
+    this.setState({ tab });
+  };
+
   public render() {
     return (
       <div className="ScheduleWeek--container">
@@ -290,139 +315,335 @@ class ScheduleWeek extends React.Component<Props, State> {
           />
           <Button className="ScheduleWeek--next-week-button" onClick={this.handleDateChangeNext} disabled={this.state.loading}><KeyboardArrowRight /></Button>
         </div>
-        <div className="ScheduleWeek--week-view-container">
-          {this.getSchedBorders()}
-          <div className="ScheduleWeek--week-view-header sw-empty"></div>
-          <div className="ScheduleWeek--week-view-header sw-day1">
-            <div className="ScheduleWeek--week-view-header-day">M</div>
-            {this.getWeekNumbers(this.state.currentDate, 0)}
-          </div>
-          <div className="ScheduleWeek--week-view-header sw-day2">
-            <div className="ScheduleWeek--week-view-header-day">T</div>
-            {this.getWeekNumbers(this.state.currentDate, 1)}
-          </div>
-          <div className="ScheduleWeek--week-view-header sw-day3">
-            <div className="ScheduleWeek--week-view-header-day">W</div>
-            {this.getWeekNumbers(this.state.currentDate, 2)}
-          </div>
-          <div className="ScheduleWeek--week-view-header sw-day4">
-            <div className="ScheduleWeek--week-view-header-day">T</div>
-            {this.getWeekNumbers(this.state.currentDate, 3)}
-          </div>
-          <div className="ScheduleWeek--week-view-header sw-day5">
-            <div className="ScheduleWeek--week-view-header-day">F</div>
-            {this.getWeekNumbers(this.state.currentDate, 4)}
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p1">
-            1
-            <div className="ScheduleWeek--week-view-time">
-              <span>8:30</span>
-              <span>9:20</span>
+
+        <Tabs
+          value={this.state.tab}
+          onChange={this.handleTabChange}
+          variant="fullWidth"
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab icon={<WeekViewIcon />} label="Week view" />
+          <Tab icon={<ListIcon />} label="List view" />
+        </Tabs>
+        {this.state.tab == 0 ? (
+          <div>
+            <div className="ScheduleWeek--week-view-container">
+              {this.getSchedBorders()}
+              <div className="ScheduleWeek--week-view-header sw-empty"></div>
+              <div className="ScheduleWeek--week-view-header sw-day1">
+                <div className="ScheduleWeek--week-view-header-day">M</div>
+                {this.getWeekNumbers(this.state.currentDate, 0)}
+              </div>
+              <div className="ScheduleWeek--week-view-header sw-day2">
+                <div className="ScheduleWeek--week-view-header-day">T</div>
+                {this.getWeekNumbers(this.state.currentDate, 1)}
+              </div>
+              <div className="ScheduleWeek--week-view-header sw-day3">
+                <div className="ScheduleWeek--week-view-header-day">W</div>
+                {this.getWeekNumbers(this.state.currentDate, 2)}
+              </div>
+              <div className="ScheduleWeek--week-view-header sw-day4">
+                <div className="ScheduleWeek--week-view-header-day">T</div>
+                {this.getWeekNumbers(this.state.currentDate, 3)}
+              </div>
+              <div className="ScheduleWeek--week-view-header sw-day5">
+                <div className="ScheduleWeek--week-view-header-day">F</div>
+                {this.getWeekNumbers(this.state.currentDate, 4)}
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p1">
+                1
+                <div className="ScheduleWeek--week-view-time">
+                  <span>8:30</span>
+                  <span>9:20</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p2">
+                2
+                <div className="ScheduleWeek--week-view-time">
+                  <span>9:20</span>
+                  <span>10:10</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p3">
+                3
+                <div className="ScheduleWeek--week-view-time">
+                  <span>10:30</span>
+                  <span>11:20</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p4">
+                4
+                <div className="ScheduleWeek--week-view-time">
+                  <span>11:20</span>
+                  <span>12:10</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p5">
+                5
+                <div className="ScheduleWeek--week-view-time">
+                  <span>12:10</span>
+                  <span>13:00</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p6">
+                6
+                <div className="ScheduleWeek--week-view-time">
+                  <span>13:00</span>
+                  <span>13:50</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p7">
+                7
+                <div className="ScheduleWeek--week-view-time">
+                  <span>13:50</span>
+                  <span>14:40</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p8">
+                8
+                <div className="ScheduleWeek--week-view-time">
+                  <span>15:00</span>
+                  <span>15:50</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p9">
+                9
+                <div className="ScheduleWeek--week-view-time">
+                  <span>15:50</span>
+                  <span>16:40</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p10">
+                10
+                <div className="ScheduleWeek--week-view-time">
+                  <span>17:00</span>
+                  <span>17:50</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p11">
+                11
+                <div className="ScheduleWeek--week-view-time">
+                  <span>17:50</span>
+                  <span>18:40</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p12">
+                12
+                <div className="ScheduleWeek--week-view-time">
+                  <span>18:40</span>
+                  <span>19:30</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p13">
+                13
+                <div className="ScheduleWeek--week-view-time">
+                  <span>19:30</span>
+                  <span>20:20</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p14">
+                14
+                <div className="ScheduleWeek--week-view-time">
+                  <span>20:20</span>
+                  <span>21:10</span>
+                </div>
+              </div>
+              <div className="ScheduleWeek--week-view-time-container sw-c0-p15">
+                15
+                <div className="ScheduleWeek--week-view-time">
+                  <span>21:10</span>
+                  <span>22:00</span>
+                </div>
+              </div>
+              {this.getSched()}
             </div>
+            {this.state.loading ? (
+              <div className="ScheduleWeek--week-view-loading">
+                <Loader />
+              </div>
+            ) : null}
           </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p2">
-            2
-            <div className="ScheduleWeek--week-view-time">
-              <span>9:20</span>
-              <span>10:10</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p3">
-            3
-            <div className="ScheduleWeek--week-view-time">
-              <span>10:30</span>
-              <span>11:20</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p4">
-            4
-            <div className="ScheduleWeek--week-view-time">
-              <span>11:20</span>
-              <span>12:10</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p5">
-            5
-            <div className="ScheduleWeek--week-view-time">
-              <span>12:10</span>
-              <span>13:00</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p6">
-            6
-            <div className="ScheduleWeek--week-view-time">
-              <span>13:00</span>
-              <span>13:50</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p7">
-            7
-            <div className="ScheduleWeek--week-view-time">
-              <span>13:50</span>
-              <span>14:40</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p8">
-            8
-            <div className="ScheduleWeek--week-view-time">
-              <span>15:00</span>
-              <span>15:50</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p9">
-            9
-            <div className="ScheduleWeek--week-view-time">
-              <span>15:50</span>
-              <span>16:40</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p10">
-            10
-            <div className="ScheduleWeek--week-view-time">
-              <span>17:00</span>
-              <span>17:50</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p11">
-            11
-            <div className="ScheduleWeek--week-view-time">
-              <span>17:50</span>
-              <span>18:40</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p12">
-            12
-            <div className="ScheduleWeek--week-view-time">
-              <span>18:40</span>
-              <span>19:30</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p13">
-            13
-            <div className="ScheduleWeek--week-view-time">
-              <span>19:30</span>
-              <span>20:20</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p14">
-            14
-            <div className="ScheduleWeek--week-view-time">
-              <span>20:20</span>
-              <span>21:10</span>
-            </div>
-          </div>
-          <div className="ScheduleWeek--week-view-time-container sw-c0-p15">
-            15
-            <div className="ScheduleWeek--week-view-time">
-              <span>21:10</span>
-              <span>22:00</span>
-            </div>
-          </div>
-          {this.getSched()}
-        </div>
-        {this.state.loading ? (
-          <div className="ScheduleWeek--week-view-loading">
-            <Loader />
+        ) : null}
+        {this.state.tab == 1 ? (
+          <div>
+            <List subheader={<li />}>
+              <li>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader className="ScheduleWeek--list-sticky">{`Monday`}</ListSubheader>
+                  {this.state.monday.map((item, index) => (
+                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                      <ListItemAvatar>
+                        <Avatar>
+                          {index + 1}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                        }
+                        secondary={
+                          <div className="ScheduleWeek--list-item-text-secondary">
+                            {item.Text != null ? (
+                              <div>
+                                <span>{item.Text}</span><br/>
+                              </div>
+                            ) : null}
+                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
+                            <span>
+                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                            </span><br/>
+                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                          </div>
+                        } />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader className="ScheduleWeek--list-sticky">{`Tuesday`}</ListSubheader>
+                  {this.state.tuesday.map((item, index) => (
+                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                      <ListItemAvatar>
+                        <Avatar>
+                          {index + 1}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                        }
+                        secondary={
+                          <div className="ScheduleWeek--list-item-text-secondary">
+                            {item.Text != null ? (
+                              <div>
+                                <span>{item.Text}</span><br/>
+                              </div>
+                            ) : null}
+                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
+                            <span>
+                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                            </span><br/>
+                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                          </div>
+                        } />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader className="ScheduleWeek--list-sticky">{`Wednesday`}</ListSubheader>
+                  {this.state.wednesday.map((item, index) => (
+                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                      <ListItemAvatar>
+                        <Avatar>
+                          {index + 1}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                        }
+                        secondary={
+                          <div className="ScheduleWeek--list-item-text-secondary">
+                            {item.Text != null ? (
+                              <div>
+                                <span>{item.Text}</span><br/>
+                              </div>
+                            ) : null}
+                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
+                            <span>
+                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                            </span><br/>
+                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                          </div>
+                        } />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader className="ScheduleWeek--list-sticky">{`Thursday`}</ListSubheader>
+                  {this.state.thursday.map((item, index) => (
+                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                      <ListItemAvatar>
+                        <Avatar>
+                          {index + 1}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                        }
+                        secondary={
+                          <div className="ScheduleWeek--list-item-text-secondary">
+                            {item.Text != null ? (
+                              <div>
+                                <span>{item.Text}</span><br/>
+                              </div>
+                            ) : null}
+                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
+                            <span>
+                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                            </span><br/>
+                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                          </div>
+                        } />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader className="ScheduleWeek--list-sticky">{`Friday`}</ListSubheader>
+                  {this.state.friday.map((item, index) => (
+                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                      <ListItemAvatar>
+                        <Avatar>
+                          {index + 1}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                        }
+                        secondary={
+                          <div className="ScheduleWeek--list-item-text-secondary">
+                            {item.Text != null ? (
+                              <div>
+                                <span>{item.Text}</span><br/>
+                              </div>
+                            ) : null}
+                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
+                            <span>
+                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                            </span><br/>
+                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                          </div>
+                        } />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+            </List>
+            {this.state.loading ? (
+              <div className="ScheduleWeek--week-view-loading">
+                <Loader />
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

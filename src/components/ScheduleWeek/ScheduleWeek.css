@@ -149,6 +149,10 @@
   font-size: .8em;
 }
 
+.ScheduleWeek--list-sticky{
+  background-color: #222222 !important;
+}
+
 @media screen and (max-width: 800px) {
   .ScheduleWeek--container{
     position: relative;
