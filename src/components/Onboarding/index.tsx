@@ -2,6 +2,8 @@ import * as React from 'react';
 import './Onboarding.css';
 
 // Components
+import Loader from '../../components/Loader'
+
 // Dialog
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -36,6 +38,8 @@ type State = {
   classCode: string,
   teacherCode: string,
   searchfield: string,
+  loadingClasses: boolean,
+  loadingTeachers: boolean,
   classes: Array<any>,
   classesFiltered: Array<any>,
   teachers: Array<any>,
@@ -57,6 +61,8 @@ class Onboarding extends React.Component<Props, State> {
       classCode: '',
       teacherCode: '',
       searchfield: '',
+      loadingClasses: true,
+      loadingTeachers: true,
       classes: [],
       classesFiltered: [],
       teachers: [],
@@ -70,6 +76,7 @@ class Onboarding extends React.Component<Props, State> {
       .then(res => res.json())
       .then(data => {
         this.setState({
+          loadingClasses: false,
           classes: data.value,
           classesFiltered: data.value,
         })
@@ -79,6 +86,7 @@ class Onboarding extends React.Component<Props, State> {
       .then(res => res.json())
       .then(data => {
         this.setState({
+          loadingTeachers: false,
           teachers: data.value,
           teachersFiltered: data.value,
         })
@@ -191,10 +199,11 @@ class Onboarding extends React.Component<Props, State> {
                 aria-label='User type'
                 name='User type'
                 value={this.state.userType}
+                color="primary"
                 onChange={this.handleChange('userType')}
               >
-                <FormControlLabel value='Student' control={<Radio />} label='Student' />
-                <FormControlLabel value='Teacher' control={<Radio />} label='Teacher' />
+                <FormControlLabel value='Student' control={<Radio color="primary" />} label='Student' />
+                <FormControlLabel value='Teacher' control={<Radio color="primary" />} label='Teacher' />
               </RadioGroup>
             </FormControl>
           </div>
@@ -204,8 +213,11 @@ class Onboarding extends React.Component<Props, State> {
           <div className="Onboarding-dialog--step-2-container">
             {this.state.userType == 'Student' ? (
               <div>
+                <Typography variant='h5' gutterBottom>
+                  Select your class code
+                </Typography>
                 <TextField
-                  label='Search for your class code'
+                  label='Class code'
                   value={this.state.searchfield}
                   onChange={this.handleSearch('classes')}
                   type='search'
@@ -213,7 +225,7 @@ class Onboarding extends React.Component<Props, State> {
                   variant='outlined'
                   fullWidth
                 />
-                {this.state.classes != null ? (
+                {!this.state.loadingClasses ? (
                   <div>
                     <RadioGroup
                       aria-label='Class'
@@ -222,16 +234,19 @@ class Onboarding extends React.Component<Props, State> {
                       onChange={this.handleChange('classCode')}
                     >
                       {this.state.classesFiltered.map(item => (
-                        <FormControlLabel key={item.Class} value={item.Class} control={<Radio />} label={item.Class} />
+                        <FormControlLabel key={item.Class} value={item.Class} control={<Radio color="primary" />} label={item.Class} />
                       ))}
                     </RadioGroup>
                   </div>
-                ) : 'Loading'}
+                ) : <Loader />}
               </div>
             ) : (
               <div>
+                <Typography variant='h5' gutterBottom>
+                  Select your teacher code
+                </Typography>
                 <TextField
-                  label='Search for your teacher code'
+                  label='Teacher code'
                   value={this.state.searchfield}
                   onChange={this.handleSearch('teachers')}
                   type='search'
@@ -239,7 +254,7 @@ class Onboarding extends React.Component<Props, State> {
                   variant='outlined'
                   fullWidth
                 />
-                {this.state.teachers != null ? (
+                {!this.state.loadingTeachers ? (
                   <div>
                     <RadioGroup
                       aria-label='Class'
@@ -248,11 +263,11 @@ class Onboarding extends React.Component<Props, State> {
                       onChange={this.handleChange('teacherCode')}
                     >
                       {this.state.teachersFiltered.map(item => (
-                        <FormControlLabel key={item.Teacher} value={item.Teacher} control={<Radio />} label={item.Teacher} />
+                        <FormControlLabel key={item.Teacher} value={item.Teacher} control={<Radio color="primary" />} label={item.Teacher} />
                       ))}
                     </RadioGroup>
                   </div>
-                ) : 'Loading'}
+                ) : <Loader />}
               </div>
             ) }
           </div>
