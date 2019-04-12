@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import './Search.css';
 
+// Components
+import EmptyState from '../../components/EmptyState'
+
 // Material-UI
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
@@ -49,6 +52,7 @@ type State = {
   ClassFilter: boolean,
   TeacherFilter: boolean,
   RoomFilter: boolean,
+  searched: boolean,
 }
 
 class Search extends React.Component<Props, State> {
@@ -61,6 +65,7 @@ class Search extends React.Component<Props, State> {
       ClassFilter: false,
       TeacherFilter: false,
       RoomFilter: false,
+      searched: false,
     };
   }
 
@@ -76,6 +81,9 @@ class Search extends React.Component<Props, State> {
   }
 
   componentWillUnmount = () => {
+    this.setState({
+      searched: false
+    })
     if (this.props.searchbar) {
       this.props.toggleSearchbar()
     }
@@ -84,6 +92,9 @@ class Search extends React.Component<Props, State> {
   eQ = () => {
     console.log(`Quering: ${this.props.q}`)
     if (this.props.q != '') {
+      this.setState({
+        searched: true
+      })
       if (!this.state.ClassFilter && !this.state.TeacherFilter && !this.state.RoomFilter) {
         this.fetchClasses(this.props.q)
         this.fetchTeachers(this.props.q)
@@ -222,10 +233,8 @@ class Search extends React.Component<Props, State> {
               ))}
             </div>
           ) : null}
-          {this.state.ClassRes.length == 0 && this.state.TeacherRes.length == 0 && this.state.RoomRes.length == 0 ? (
-            <div>
-              EMPTY STATE
-            </div>
+          {this.state.ClassRes.length == 0 && this.state.TeacherRes.length == 0 && this.state.RoomRes.length == 0 && this.state.searched ? (
+            <EmptyState kind="no-res" />
           ) : null}
         </div>
       </section>

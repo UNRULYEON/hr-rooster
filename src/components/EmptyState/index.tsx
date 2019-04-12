@@ -19,6 +19,8 @@ class EmptyState extends React.Component<Props, State> {
         return 'You\'re not following any rooms';
       case 'no-schedule':
         return 'No schedule for today';
+      case 'no-res':
+        return 'No results found';
       default:
         return 'Empty State'
     }
