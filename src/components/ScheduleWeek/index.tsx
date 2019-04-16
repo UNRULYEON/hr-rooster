@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Material UI Pickers
 import { InlineDatePicker } from "material-ui-pickers";
@@ -304,18 +305,23 @@ class ScheduleWeek extends React.Component<Props, State> {
     return (
       <div className="ScheduleWeek--container">
         <div className="ScheduleWeek--top-bar">
-          <Button className="ScheduleWeek--previous-week-button" onClick={this.handleDateChangePrev} disabled={this.state.loading}><KeyboardArrowLeft /></Button>
-          <InlineDatePicker
-            onlyCalendar
-            variant="outlined"
-            className="ScheduleWeek--current-date-button"
-            value={this.state.currentDate}
-            onChange={this.handleDateChange}
-            disabled={this.state.loading}
-          />
-          <Button className="ScheduleWeek--next-week-button" onClick={this.handleDateChangeNext} disabled={this.state.loading}><KeyboardArrowRight /></Button>
+          <Tooltip title="Previous week" enterDelay={500} leaveDelay={200}>
+            <Button className="ScheduleWeek--previous-week-button" onClick={this.handleDateChangePrev} disabled={this.state.loading}><KeyboardArrowLeft /></Button>
+          </Tooltip>
+          <Tooltip title="Choose week" enterDelay={500} leaveDelay={200}>
+            <InlineDatePicker
+              onlyCalendar
+              variant="outlined"
+              className="ScheduleWeek--current-date-button"
+              value={this.state.currentDate}
+              onChange={this.handleDateChange}
+              disabled={this.state.loading}
+            />
+          </Tooltip>
+          <Tooltip title="Next week" enterDelay={500} leaveDelay={200}>
+            <Button className="ScheduleWeek--next-week-button" onClick={this.handleDateChangeNext} disabled={this.state.loading}><KeyboardArrowRight /></Button>
+          </Tooltip>
         </div>
-
         <Tabs
           value={this.state.tab}
           onChange={this.handleTabChange}

@@ -20,6 +20,7 @@ import HelpIcon from '@material-ui/icons/HelpRounded';
 import SettingsIcon from '@material-ui/icons/SettingsRounded';
 // import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Pose
 import posed from 'react-pose';
@@ -188,9 +189,11 @@ class App extends React.Component<Props, State> {
                     <img src={logo} className="App-header-logo" alt="logo" />
                   </Link>
                   <div className="spacer-horizontal" />
-                  <IconButton aria-label="Search" onClick={() => this.toggleSearchbarAndRedirect(history)}>
-                    <SearchIcon />
-                  </IconButton>
+                  <Tooltip title="Search" enterDelay={500} leaveDelay={200}>
+                    <IconButton aria-label="Search" onClick={() => this.toggleSearchbarAndRedirect(history)}>
+                      <SearchIcon />
+                    </IconButton>
+                  </Tooltip>
                   <Searchbar
                     className="App-header-searchbar-container"
                     pose={this.state.searchbar ? 'visible' : 'hidden'}
@@ -283,12 +286,16 @@ class App extends React.Component<Props, State> {
           <Onboarding saveOnboardingSettings={this.saveOnboardingSettings} />
         )}
         <div className="App-settings-container">
-          <IconButton aria-label="Help">
-            <HelpIcon />
-          </IconButton>
-          <IconButton aria-label="Settings" onClick={this.toggleSettingsDialog}>
-            <SettingsIcon />
-          </IconButton>
+          <Tooltip title="Help" enterDelay={500} leaveDelay={200}>
+            <IconButton aria-label="Help">
+              <HelpIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Settings" enterDelay={500} leaveDelay={200}>
+            <IconButton aria-label="Settings" onClick={this.toggleSettingsDialog}>
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
         </div>
         <SettingsDialog open={this.state.settingsDialogOpen} userType={this.state.userType} toggleSettingsDialog={this.toggleSettingsDialog} />
       </div>
