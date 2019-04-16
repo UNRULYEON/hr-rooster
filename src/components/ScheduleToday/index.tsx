@@ -133,27 +133,39 @@ class ScheduleToday extends React.Component<Props, State> {
                     <div key={`${item.LSID}-${item.StartTime}`} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
                       <div className="Item--time">
                         <div className="Item--time-start">
-                          <span className="Item--time-start-period">{item.PeriodStart}</span>
+                          {item.PeriodStart != null ? (
+                            <span className="Item--time-start-period">{item.PeriodStart}</span>
+                          ) : null}
                           <span>-</span>
-                          <span className="Item--time-start-time">{this.getTime(item.StartTime)}</span>
+                          {item.StartTime != null ? (
+                            <span className="Item--time-start-time">{this.getTime(item.StartTime)}</span>
+                          ) : null}
                         </div>
                         <div className="Item--time-end">
-                          <span className="Item--time-end-period">{item.PeriodEnd}</span>
+                          {item.PeriodEnd != null ? (
+                            <span className="Item--time-end-period">{item.PeriodEnd}</span>
+                          ) : null}
                           <span>-</span>
-                          <span className="Item--time-end-time">{this.getTime(item.EndTime)}</span>
+                          {item.EndTime != null ? (
+                            <span className="Item--time-end-time">{this.getTime(item.EndTime)}</span>
+                          ) : null}
                         </div>
                       </div>
                       <div>
                         <div className="Item--line"></div>
                       </div>
                       <div className="Item--details">
-                        <span className="Item--details-subject">{item.Subject}</span>
+                        {item.Subject != null ? (
+                          <span className="Item--details-subject">{item.Subject}</span>
+                        ) : null}
                         {item.Class == undefined ? (
                           <span className="Item--details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
                         ) : (
                           <span className="Item--details-class-teacher"><ClassIcon className="Item--details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
                         )}
-                        <span className="Item--details-room"><LocationOnIcon className="Item--details-icon" />{item.room.code}</span>
+                        {item.room.code != null ? (
+                          <span className="Item--details-room"><LocationOnIcon className="Item--details-icon" />{item.room.code}</span>
+                        ) : null}
                       </div>
                     </div>
                   ))}

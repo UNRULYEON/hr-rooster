@@ -4,6 +4,7 @@ import './ScheduleWeek.css';
 
 //Components
 import Loader from '../../components/Loader'
+import EmptyState from '../../components/EmptyState'
 
 // Material-UI
 import Button from '@material-ui/core/Button';
@@ -224,18 +225,17 @@ class ScheduleWeek extends React.Component<Props, State> {
             {week[i][j].Subject != null ? (
               <span className="ScheduleWeek--week-view-item-subject">{week[i][j].Subject} {same > 1 ? `+${same}` : null}</span>
             ) : null}
-            {/* {week[i][j].Text != null ? (
-              <span className="ScheduleWeek--week-view-item-text">{week[i][j].Text}</span>
-            ) : null} */}
             <span className="ScheduleWeek--week-view-item-class-teacher">
               {week[i][j].Class != null ? (
                 week[i][j].Class
               ) : null}
+              {week[i][j].Class != null && week[i][j].Teacher != null ? (
+                ` - `
+              ) : null}
               {week[i][j].Teacher != null ? (
-                ` - ${week[i][j].Teacher}`
+                `${week[i][j].Teacher}`
               ) : null}
             </span>
-            {/* <span className="ScheduleWeek--week-view-item-class-teacher">{week[i][j].Class} - {week[i][j].Teacher}</span> */}
             {week[i][j].room != null ? (
               <span className="ScheduleWeek--week-view-item-room">{week[i][j].room.code}</span>
             ) : null }
@@ -472,7 +472,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                 <ul style={{ padding: 0 }}>
                   <ListSubheader className="ScheduleWeek--list-sticky">{`Monday`}</ListSubheader>
                   {this.state.monday.map((item, index) => (
-                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                    <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
                         <Avatar>
                           {index + 1}
@@ -480,7 +480,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                          <span className="ScheduleWeek--list-item-text-primary">
+                            {item.Subject != null ? (
+                              item.Subject
+                            ) : null}
+                          </span>
                         }
                         secondary={
                           <div className="ScheduleWeek--list-item-text-secondary">
@@ -489,24 +493,41 @@ class ScheduleWeek extends React.Component<Props, State> {
                                 <span>{item.Text}</span><br/>
                               </div>
                             ) : null}
-                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
                             <span>
-                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
-                              {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              {item.StartTime != null ? (
+                                this.getListTime(item.StartTime)
+                              ) : null}
+                              {item.StartTime != null && item.EndTime != null ? (` - `) : null}
+                              {item.EndTime != null ? (
+                                this.getListTime(item.EndTime)
+                              ) : null}
                             </span><br/>
-                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            <span>
+                              {item.Class != null ? (
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              ) : null}
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              {item.Teacher != null ? (
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              ) : null}
+                            </span><br/>
+                            {item.room != null ? (
+                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            ) : null}
                           </div>
                         } />
                     </ListItem>
                   ))}
+                  {this.state.monday.length == 0 ? (
+                    <EmptyState kind={'no-schedule'} />
+                  ) : null}
                 </ul>
               </li>
               <li>
                 <ul style={{ padding: 0 }}>
                   <ListSubheader className="ScheduleWeek--list-sticky">{`Tuesday`}</ListSubheader>
                   {this.state.tuesday.map((item, index) => (
-                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                    <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
                         <Avatar>
                           {index + 1}
@@ -514,7 +535,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                          <span className="ScheduleWeek--list-item-text-primary">
+                            {item.Subject != null ? (
+                              item.Subject
+                            ) : null}
+                          </span>
                         }
                         secondary={
                           <div className="ScheduleWeek--list-item-text-secondary">
@@ -523,24 +548,41 @@ class ScheduleWeek extends React.Component<Props, State> {
                                 <span>{item.Text}</span><br/>
                               </div>
                             ) : null}
-                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
                             <span>
-                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
-                              {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              {item.StartTime != null ? (
+                                this.getListTime(item.StartTime)
+                              ) : null}
+                              {item.StartTime != null && item.EndTime != null ? (` - `) : null}
+                              {item.EndTime != null ? (
+                                this.getListTime(item.EndTime)
+                              ) : null}
                             </span><br/>
-                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            <span>
+                              {item.Class != null ? (
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              ) : null}
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              {item.Teacher != null ? (
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              ) : null}
+                            </span><br/>
+                            {item.room != null ? (
+                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            ) : null}
                           </div>
                         } />
                     </ListItem>
                   ))}
+                  {this.state.tuesday.length == 0 ? (
+                    <EmptyState kind={'no-schedule'} />
+                  ) : null}
                 </ul>
               </li>
               <li>
                 <ul style={{ padding: 0 }}>
                   <ListSubheader className="ScheduleWeek--list-sticky">{`Wednesday`}</ListSubheader>
                   {this.state.wednesday.map((item, index) => (
-                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                    <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
                         <Avatar>
                           {index + 1}
@@ -548,7 +590,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                          <span className="ScheduleWeek--list-item-text-primary">
+                            {item.Subject != null ? (
+                              item.Subject
+                            ) : null}
+                          </span>
                         }
                         secondary={
                           <div className="ScheduleWeek--list-item-text-secondary">
@@ -557,24 +603,41 @@ class ScheduleWeek extends React.Component<Props, State> {
                                 <span>{item.Text}</span><br/>
                               </div>
                             ) : null}
-                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
                             <span>
-                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
-                              {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              {item.StartTime != null ? (
+                                this.getListTime(item.StartTime)
+                              ) : null}
+                              {item.StartTime != null && item.EndTime != null ? (` - `) : null}
+                              {item.EndTime != null ? (
+                                this.getListTime(item.EndTime)
+                              ) : null}
                             </span><br/>
-                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            <span>
+                              {item.Class != null ? (
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              ) : null}
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              {item.Teacher != null ? (
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              ) : null}
+                            </span><br/>
+                            {item.room != null ? (
+                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            ) : null}
                           </div>
                         } />
                     </ListItem>
                   ))}
+                  {this.state.wednesday.length == 0 ? (
+                    <EmptyState kind={'no-schedule'} />
+                  ) : null}
                 </ul>
               </li>
               <li>
                 <ul style={{ padding: 0 }}>
                   <ListSubheader className="ScheduleWeek--list-sticky">{`Thursday`}</ListSubheader>
                   {this.state.thursday.map((item, index) => (
-                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                    <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
                         <Avatar>
                           {index + 1}
@@ -582,7 +645,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                          <span className="ScheduleWeek--list-item-text-primary">
+                            {item.Subject != null ? (
+                              item.Subject
+                            ) : null}
+                          </span>
                         }
                         secondary={
                           <div className="ScheduleWeek--list-item-text-secondary">
@@ -591,24 +658,41 @@ class ScheduleWeek extends React.Component<Props, State> {
                                 <span>{item.Text}</span><br/>
                               </div>
                             ) : null}
-                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
                             <span>
-                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
-                              {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              {item.StartTime != null ? (
+                                this.getListTime(item.StartTime)
+                              ) : null}
+                              {item.StartTime != null && item.EndTime != null ? (` - `) : null}
+                              {item.EndTime != null ? (
+                                this.getListTime(item.EndTime)
+                              ) : null}
                             </span><br/>
-                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            <span>
+                              {item.Class != null ? (
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              ) : null}
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              {item.Teacher != null ? (
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              ) : null}
+                            </span><br/>
+                            {item.room != null ? (
+                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            ) : null}
                           </div>
                         } />
                     </ListItem>
                   ))}
+                  {this.state.thursday.length == 0 ? (
+                    <EmptyState kind={'no-schedule'} />
+                  ) : null}
                 </ul>
               </li>
               <li>
                 <ul style={{ padding: 0 }}>
                   <ListSubheader className="ScheduleWeek--list-sticky">{`Friday`}</ListSubheader>
                   {this.state.friday.map((item, index) => (
-                    <ListItem key={`item-${item.Subject}-${item.LSID}`} className="ScheduleWeek--list-item-container">
+                    <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
                         <Avatar>
                           {index + 1}
@@ -616,7 +700,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className="ScheduleWeek--list-item-text-primary">{item.Subject}</span>
+                          <span className="ScheduleWeek--list-item-text-primary">
+                            {item.Subject != null ? (
+                              item.Subject
+                            ) : null}
+                          </span>
                         }
                         secondary={
                           <div className="ScheduleWeek--list-item-text-secondary">
@@ -625,17 +713,34 @@ class ScheduleWeek extends React.Component<Props, State> {
                                 <span>{item.Text}</span><br/>
                               </div>
                             ) : null}
-                            <span>{`${this.getListTime(item.StartTime)} - ${this.getListTime(item.EndTime)}`}</span><br/>
                             <span>
-                              <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
-                              {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              {item.StartTime != null ? (
+                                this.getListTime(item.StartTime)
+                              ) : null}
+                              {item.StartTime != null && item.EndTime != null ? (` - `) : null}
+                              {item.EndTime != null ? (
+                                this.getListTime(item.EndTime)
+                              ) : null}
                             </span><br/>
-                            <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            <span>
+                              {item.Class != null ? (
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                              ) : null}
+                              {item.Class != null && item.Teacher != null ? ` - ` : null}
+                              {item.Teacher != null ? (
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                              ) : null}
+                            </span><br/>
+                            {item.room != null ? (
+                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                            ) : null}
                           </div>
                         } />
                     </ListItem>
                   ))}
+                  {this.state.friday.length == 0 ? (
+                    <EmptyState kind={'no-schedule'} />
+                  ) : null}
                 </ul>
               </li>
             </List>
