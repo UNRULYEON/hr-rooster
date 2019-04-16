@@ -10,6 +10,7 @@ import Class from './views/Class'
 import Teacher from './views/Teacher'
 import Room from './views/Room'
 import Search from './views/Search'
+import SettingsDialog from './components/SettingsDialog'
 
 // Material Components
 import IconButton from '@material-ui/core/IconButton';
@@ -43,7 +44,8 @@ interface State {
   teachersWatching: [],
   roomsWatching: [],
   searchbar: boolean,
-  query: string
+  query: string,
+  settingsDialogOpen: boolean,
 }
 
 const Searchbar = posed.div({
@@ -83,7 +85,8 @@ class App extends React.Component<Props, State> {
       teachersWatching: [],
       roomsWatching: [],
       searchbar: false,
-      query: ''
+      query: '',
+      settingsDialogOpen: false,
     };
     this.searchPage = React.createRef();
   }
@@ -166,6 +169,10 @@ class App extends React.Component<Props, State> {
       searchbar: !this.state.searchbar,
       query: ''
     })
+  }
+
+  toggleSettingsDialog = () => {
+    this.setState({ settingsDialogOpen: !this.state.settingsDialogOpen })
   }
 
   public render() {
@@ -279,10 +286,11 @@ class App extends React.Component<Props, State> {
           <IconButton aria-label="Help">
             <HelpIcon />
           </IconButton>
-          <IconButton aria-label="Settings">
+          <IconButton aria-label="Settings" onClick={this.toggleSettingsDialog}>
             <SettingsIcon />
           </IconButton>
         </div>
+        <SettingsDialog open={this.state.settingsDialogOpen} userType={this.state.userType} toggleSettingsDialog={this.toggleSettingsDialog} />
       </div>
     );
   }
