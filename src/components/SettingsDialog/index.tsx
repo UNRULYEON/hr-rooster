@@ -2,8 +2,9 @@ import * as React from 'react';
 import './SettingsDialog.css';
 
 // Components
-import Loader from '../../components/Loader'
-// Components - Material UII
+import Loader from '../../components/Loader';
+// import { List as VirtList, ListRowProps } from "react-virtualized";
+// Components - Material UI
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -26,7 +27,9 @@ type Props = {
   fullScreen: boolean,
   open: boolean,
   userType: string,
+  code: string,
   toggleSettingsDialog: () => {}
+  handleCodeChange: (name: string, value: string) => {}
 }
 
 type State = {
@@ -96,6 +99,7 @@ class SettingsDialog extends React.Component<Props, State> {
     this.setState({
       [name]: event.target.value,
     } as unknown as Pick<State, keyof State>);
+    this.props.handleCodeChange(name, event.target.value)
   };
 
   // Handle search
@@ -120,6 +124,10 @@ class SettingsDialog extends React.Component<Props, State> {
     } as unknown as Pick<State, keyof State>);
   };
 
+  // renderRow = (props: ListRowProps): React.ReactNode => {
+  //   return <FormControlLabel key={props.key} style={props.style} value={this.state.classesFiltered[props.index].Class} control={<Radio color="primary" />} label={this.state.classesFiltered[props.index].Class} />
+  // }
+
   public render() {
     const { fullScreen, open } = this.props;
 
@@ -128,7 +136,8 @@ class SettingsDialog extends React.Component<Props, State> {
         fullScreen={fullScreen}
         open={open}
         onClose={this.props.toggleSettingsDialog}
-        aria-labelledby="responsive-dialog-title"
+        maxWidth={'lg'}
+        className="Dialog-settings--container"
       >
         <DialogTitle id="responsive-dialog-title">{"Settings"}</DialogTitle>
         <Tabs
@@ -138,6 +147,7 @@ class SettingsDialog extends React.Component<Props, State> {
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
+          className="Dialog-settings-tabs"
         >
           <Tab label="Basics" />
           {this.props.userType == 'Student' ? (
@@ -148,70 +158,85 @@ class SettingsDialog extends React.Component<Props, State> {
           <Tab label="Teachers you're following" />
           <Tab label="Rooms you're following" />
         </Tabs>
-        <DialogContent>
-          <SwipeableViews
+        <DialogContent className="Dialog-settings--content-container">
+          {/* <SwipeableViews
             index={this.state.tab}
             onChangeIndex={this.handleTabChangeIndex}
-          >
-            <div className="SettingsDialog--tab-container"></div>
-            {this.props.userType == 'Student' ? (
-              <div className="SettingsDialog--tab-container">
-                <TextField
-                  label='Class code'
-                  value={this.state.searchfield}
-                  onChange={this.handleSearch('classes')}
-                  type='search'
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-                {!this.state.loadingClasses ? (
-                  <div>
-                    <RadioGroup
-                      aria-label='Class'
-                      name='Class'
-                      value={this.state.newClassCode}
-                      onChange={this.handleChange('newClassCode')}
-                    >
-                      {this.state.classesFiltered.map(item => (
-                        <FormControlLabel key={item.Class} value={item.Class} control={<Radio color="primary" />} label={item.Class} />
-                      ))}
-                    </RadioGroup>
-                  </div>
-                ) : <Loader />}
-              </div>
-            ) : (
-              <div>
-                <TextField
-                  label='Teacher code'
-                  value={this.state.searchfield}
-                  onChange={this.handleSearch('teachers')}
-                  type='search'
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-                {!this.state.loadingTeachers ? (
-                  <div>
-                    <RadioGroup
-                      aria-label='Class'
-                      name='Class'
-                      value={this.state.newTeacherCode}
-                      onChange={this.handleChange('newTeacherCode')}
-                    >
-                      {this.state.teachersFiltered.map(item => (
-                        <FormControlLabel key={item.Teacher} value={item.Teacher} control={<Radio color="primary" />} label={item.Teacher} />
-                      ))}
-                    </RadioGroup>
-                  </div>
-                ) : <Loader />}
-              </div>
-            )}
-            <div className="SettingsDialog--tab-container"></div>
-            <div className="SettingsDialog--tab-container"></div>
-          </SwipeableViews>
+          > */}
+          {this.state.tab == 0 && <div className="SettingsDialog--tab-container"></div>}
+          {this.state.tab == 1 && (
+            <div>
+              {this.props.userType == 'Student' ? (
+                <div className="SettingsDialog--tab-container">
+                  <span className="SettingsDialog--tab-current-code">Your current class: <strong>{this.props.code}</strong></span>
+                  <TextField
+                    label='Class code'
+                    value={this.state.searchfield}
+                    onChange={this.handleSearch('classes')}
+                    type='search'
+                    margin='normal'
+                    variant='outlined'
+                    fullWidth
+                  />
+                  {!this.state.loadingClasses ? (
+                    <div style={{ maxHeight: '500px' }}>
+                      <RadioGroup
+                        aria-label='Class'
+                        name='Class'
+                        value={this.state.newClassCode}
+                        onChange={this.handleChange('newClassCode')}
+                      >
+                        {/* <VirtList
+                          width={500}
+                          height={500}
+                          rowHeight={48}
+                          overscanRowCount={10}
+                          rowRenderer={this.renderRow}
+                          rowCount={this.state.classesFiltered.length}
+                        /> */}
+                        {this.state.classesFiltered.map(item => (
+                          <FormControlLabel key={item.Class} value={item.Class} control={<Radio color="primary" />} label={item.Class} />
+                        ))}
+                      </RadioGroup>
+                    </div>
+                  ) : <Loader />}
+                </div>
+              ) : (
+                <div>
+                <span className="SettingsDialog--tab-current-code">Your current code: <strong>{this.props.code}</strong></span>
+                  <TextField
+                    label='Teacher code'
+                    value={this.state.searchfield}
+                    onChange={this.handleSearch('teachers')}
+                    type='search'
+                    margin='normal'
+                    variant='outlined'
+                    fullWidth
+                  />
+                  {!this.state.loadingTeachers ? (
+                    <div style={{ maxHeight: '500px' }}>
+                      <RadioGroup
+                        aria-label='Class'
+                        name='Class'
+                        value={this.state.newTeacherCode}
+                        onChange={this.handleChange('newTeacherCode')}
+                      >
+                        {this.state.teachersFiltered.map(item => (
+                          <FormControlLabel key={item.Teacher} value={item.Teacher} control={<Radio color="primary" />} label={item.Teacher} />
+                        ))}
+                      </RadioGroup>
+                    </div>
+                  ) : <Loader />}
+                </div>
+              )}
+            </div>
+          )}
+          {this.state.tab == 2 && <div className="SettingsDialog--tab-container"></div>}
+          {this.state.tab == 3 && <div className="SettingsDialog--tab-container"></div>}
+          {/* </SwipeableViews> */}
         </DialogContent>
         <DialogActions>
+          <span className="Dialog-settings--actions-message">Settings are automatically saved</span>
           <Button onClick={this.props.toggleSettingsDialog} color="primary" autoFocus>
             Agree
           </Button>

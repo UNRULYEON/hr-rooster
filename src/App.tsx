@@ -139,6 +139,22 @@ class App extends React.Component<Props, State> {
     } as unknown as Pick<State, keyof State>);
   };
 
+  handleCodeChange = (name: string, value: string) => {
+    this.setState({
+      code: value
+    })
+
+    let settings: Settings = {
+      userType: this.state.userType,
+      code: value,
+      schedule: this.state.schedule,
+      teachersWatching: this.state.teachersWatching,
+      roomsWatching: this.state.roomsWatching
+    }
+
+    localStorage.setItem('settings', JSON.stringify(settings));
+  }
+
   toggleSearchbarAndRedirect = (history: any) => {
     if (!this.state.searchbar) {
       // Go to search
@@ -297,7 +313,13 @@ class App extends React.Component<Props, State> {
             </IconButton>
           </Tooltip>
         </div>
-        <SettingsDialog open={this.state.settingsDialogOpen} userType={this.state.userType} toggleSettingsDialog={this.toggleSettingsDialog} />
+        <SettingsDialog
+          open={this.state.settingsDialogOpen}
+          code={this.state.code}
+          userType={this.state.userType}
+          toggleSettingsDialog={this.toggleSettingsDialog}
+          handleCodeChange={this.handleCodeChange}
+        />
       </div>
     );
   }
