@@ -238,7 +238,7 @@ class SettingsDialog extends React.Component<Props, State> {
         <DialogActions>
           <span className="Dialog-settings--actions-message">Settings are automatically saved</span>
           <Button onClick={this.props.toggleSettingsDialog} color="primary" autoFocus>
-            Agree
+            Done
           </Button>
         </DialogActions>
       </Dialog>
