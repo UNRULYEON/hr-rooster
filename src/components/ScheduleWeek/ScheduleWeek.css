@@ -3,6 +3,7 @@
   display: flex;
   flex-flow: column nowrap;
   flex-basis: 100%;
+  margin-top: 50px;
 }
 
 .ScheduleWeek--week-view-loading{

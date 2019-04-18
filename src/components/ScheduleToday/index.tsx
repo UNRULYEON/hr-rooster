@@ -110,12 +110,19 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
-  isCurrentLesson = (s: string, e: string) => {
+  isCurrentLesson = (s: string, e: string, type: number) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
     let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes() < 10 ? "0" +  new Date().getMinutes() : new Date().getMinutes() }`);
     if (start <= currentTime && currentTime <= end) {
-      return "Item--container-current"
+      switch (type){
+        case 0:
+          return "SchedToday--item-container-current"
+        case 1:
+          return "SchedToday--item-container-current-circle"
+        default:
+          return ""
+      }
     } else {
       return ""
     }
@@ -124,47 +131,54 @@ class ScheduleToday extends React.Component<Props, State> {
   public render() {
     return (
       <div style={{ width: '-webkit-fill-available' }}>
-        <span className="ScheduleToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
+        <span className="SchedToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
             <div style={{ maxWidth: '600px' }}>
               {this.state.schedule.length > 0 ? (
-                <div className="ScheduleToday--container">
-                  {this.state.schedule.map(item => (
-                    <div key={`${item.LSID}-${item.StartTime}`} className={`Item--container ${this.isCurrentLesson(item.StartTime, item.EndTime)}`}>
-                      <div className="Item--time">
-                        <div className="Item--time-start">
+                <div className={`SchedToday--container`} style={{
+                  // gridTemplateColumns: `95px 30px 1fr`,
+                  // gridTemplateRows: `repeat(${this.state.schedule.length}, 1fr)`,
+                  gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 95px 50px 1fr`,
+                }}>
+                  <div className={`SchedToday--line-container`} style={{ gridRowEnd: `${this.state.schedule.length + 1}` }}>
+                    <div className="SchedToday--line"></div>
+                  </div>
+                  {this.state.schedule.map((item, index) => (
+                    <div key={`${item.LSID}-${index}`} className={`SchedToday--item-container ${this.isCurrentLesson(item.StartTime, item.EndTime, 0)}`} style={{gridRowStart: `${index + 1}`}}>
+                      <div className="SchedToday--item-time">
+                        <div className="SchedToday--item-time-start">
                           {item.PeriodStart != null ? (
-                            <span className="Item--time-start-period">{item.PeriodStart}</span>
+                            <span className="SchedToday--item-start-period">{item.PeriodStart}</span>
                           ) : null}
                           <span>-</span>
                           {item.StartTime != null ? (
-                            <span className="Item--time-start-time">{this.getTime(item.StartTime)}</span>
+                            <span className="SchedToday--item-start-time">{this.getTime(item.StartTime)}</span>
                           ) : null}
                         </div>
-                        <div className="Item--time-end">
+                        <div className="SchedToday--item-time-end">
                           {item.PeriodEnd != null ? (
-                            <span className="Item--time-end-period">{item.PeriodEnd}</span>
+                            <span className="SchedToday--item-end-period">{item.PeriodEnd}</span>
                           ) : null}
                           <span>-</span>
                           {item.EndTime != null ? (
-                            <span className="Item--time-end-time">{this.getTime(item.EndTime)}</span>
+                            <span className="SchedToday--item-end-time">{this.getTime(item.EndTime)}</span>
                           ) : null}
                         </div>
                       </div>
-                      <div>
-                        <div className="Item--line"></div>
+                      <div className="SchedToday--item-circle-container">
+                        <div className={`SchedToday--item-circle ${this.isCurrentLesson(item.StartTime, item.EndTime, 1)}`}></div>
                       </div>
-                      <div className="Item--details">
+                      <div className="SchedToday--item-details">
                         {item.Subject != null ? (
-                          <span className="Item--details-subject">{item.Subject}</span>
+                          <span className="SchedToday--item-details-subject">{item.Subject}</span>
                         ) : null}
                         {item.Class == undefined ? (
-                          <span className="Item--details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
+                          <span className="SchedToday--item-details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
                         ) : (
-                          <span className="Item--details-class-teacher"><ClassIcon className="Item--details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
+                          <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
                         )}
                         {item.room.code != null ? (
-                          <span className="Item--details-room"><LocationOnIcon className="Item--details-icon" />{item.room.code}</span>
+                          <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
                         ) : null}
                       </div>
                     </div>
