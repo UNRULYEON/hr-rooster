@@ -196,6 +196,20 @@ class ScheduleWeek extends React.Component<Props, State> {
     }
   }
 
+  isCurrentLesson = (s: string, e: string, d: string) => {
+    if (new Date(d).getDate() == new Date().getDate()) {
+      let start: number = parseInt(s);
+      let end: number = parseInt(e);
+      let currentTime: number = parseInt(`${new Date().getHours()}${new Date().getMinutes() < 10 ? "0" +  new Date().getMinutes() : new Date().getMinutes() }`);
+      if (start <= currentTime && currentTime <= end) {
+        return "ScheduleWeek--list-item-avatar-current"
+      } else {
+        return ""
+      }
+    }
+    return ""
+  }
+
   getSched = () => {
     let res: Array<any> = [];
     let week: Array<any> = [this.state.monday, this.state.tuesday, this.state.wednesday, this.state.thursday, this.state.friday]
@@ -480,7 +494,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                   {this.state.monday.map((item, index) => (
                     <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
-                        <Avatar>
+                        <Avatar className={`ScheduleWeek--list-item-avatar ${this.isCurrentLesson(item.StartTime, item.EndTime, item.Date)}`}>
                           {index + 1}
                         </Avatar>
                       </ListItemAvatar>
@@ -535,7 +549,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                   {this.state.tuesday.map((item, index) => (
                     <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
-                        <Avatar>
+                        <Avatar className={`ScheduleWeek--list-item-avatar ${this.isCurrentLesson(item.StartTime, item.EndTime, item.Date)}`}>
                           {index + 1}
                         </Avatar>
                       </ListItemAvatar>
@@ -590,7 +604,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                   {this.state.wednesday.map((item, index) => (
                     <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
-                        <Avatar>
+                        <Avatar className={`ScheduleWeek--list-item-avatar ${this.isCurrentLesson(item.StartTime, item.EndTime, item.Date)}`}>
                           {index + 1}
                         </Avatar>
                       </ListItemAvatar>
@@ -645,7 +659,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                   {this.state.thursday.map((item, index) => (
                     <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
-                        <Avatar>
+                        <Avatar className={`ScheduleWeek--list-item-avatar ${this.isCurrentLesson(item.StartTime, item.EndTime, item.Date)}`}>
                           {index + 1}
                         </Avatar>
                       </ListItemAvatar>
@@ -700,7 +714,7 @@ class ScheduleWeek extends React.Component<Props, State> {
                   {this.state.friday.map((item, index) => (
                     <ListItem key={`item-${item.LSID}-${index}`} className="ScheduleWeek--list-item-container">
                       <ListItemAvatar>
-                        <Avatar>
+                        <Avatar className={`ScheduleWeek--list-item-avatar ${this.isCurrentLesson(item.StartTime, item.EndTime, item.Date)}`}>
                           {index + 1}
                         </Avatar>
                       </ListItemAvatar>

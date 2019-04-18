@@ -134,13 +134,25 @@
 
 .ScheduleWeek--week-view-item-current{
   border: 5px solid rgba(204, 0, 51, 0.6);
-  background-color: rgba(204, 0, 51, 0.1) !important;
+  background-color: rgba(51, 30, 36, 1) !important;
   border-radius: 5px;
   margin: 0 !important;
 }
 
 .ScheduleWeek--week-view-item-subject{
   font-weight: bold;
+}
+
+.ScheduleWeek--list-item-avatar{
+  border: 1px solid rgba(85, 85, 85, 0.6) !important;
+  background-color: rgba(85, 85, 85, 0.1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.ScheduleWeek--list-item-avatar-current{
+  border: 1px solid rgba(204, 0, 51, 0.6) !important;
+  background-color: rgba(204, 0, 51, 0.1) !important;
+  color: rgba(204, 0, 51, 1) !important;
 }
 
 .ScheduleWeek--week-view-item-text,
@@ -151,6 +163,7 @@
 
 .ScheduleWeek--list-sticky{
   background-color: #222222 !important;
+  color: rgba(204, 0, 51, 1) !important;
 }
 
 @media screen and (max-width: 800px) {

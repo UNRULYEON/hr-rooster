@@ -126,7 +126,7 @@ class ScheduleToday extends React.Component<Props, State> {
       <div style={{ width: '-webkit-fill-available' }}>
         <span className="ScheduleToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
-            <div>
+            <div style={{ maxWidth: '600px' }}>
               {this.state.schedule.length > 0 ? (
                 <div className="ScheduleToday--container">
                   {this.state.schedule.map(item => (
