@@ -124,10 +124,6 @@ class SettingsDialog extends React.Component<Props, State> {
     } as unknown as Pick<State, keyof State>);
   };
 
-  // renderRow = (props: ListRowProps): React.ReactNode => {
-  //   return <FormControlLabel key={props.key} style={props.style} value={this.state.classesFiltered[props.index].Class} control={<Radio color="primary" />} label={this.state.classesFiltered[props.index].Class} />
-  // }
-
   public render() {
     const { fullScreen, open } = this.props;
 
@@ -149,20 +145,16 @@ class SettingsDialog extends React.Component<Props, State> {
           scrollButtons="auto"
           className="Dialog-settings-tabs"
         >
-          <Tab label="Basics" />
+          <Tab label="General" />
           {this.props.userType == 'Student' ? (
             <Tab label="Class code" />
           ) : (
             <Tab label="Teacher code" />
           )}
-          <Tab label="Teachers you're following" />
-          <Tab label="Rooms you're following" />
+          {/* <Tab label="Teachers you're following" />
+          <Tab label="Rooms you're following" /> */}
         </Tabs>
         <DialogContent className="Dialog-settings--content-container">
-          {/* <SwipeableViews
-            index={this.state.tab}
-            onChangeIndex={this.handleTabChangeIndex}
-          > */}
           {this.state.tab == 0 && <div className="SettingsDialog--tab-container"></div>}
           {this.state.tab == 1 && (
             <div>
@@ -231,9 +223,8 @@ class SettingsDialog extends React.Component<Props, State> {
               )}
             </div>
           )}
-          {this.state.tab == 2 && <div className="SettingsDialog--tab-container"></div>}
-          {this.state.tab == 3 && <div className="SettingsDialog--tab-container"></div>}
-          {/* </SwipeableViews> */}
+          {/* {this.state.tab == 2 && <div className="SettingsDialog--tab-container"></div>}
+          {this.state.tab == 3 && <div className="SettingsDialog--tab-container"></div>} */}
         </DialogContent>
         <DialogActions>
           <span className="Dialog-settings--actions-message">Settings are automatically saved</span>

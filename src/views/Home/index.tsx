@@ -3,7 +3,7 @@ import './Home.css';
 
 // Components
 import ScheduleToday from '../../components/ScheduleToday'
-import EmptyState from '../../components/EmptyState'
+// import EmptyState from '../../components/EmptyState'
 
 type Props = {
   userType: string,
@@ -23,7 +23,7 @@ class Home extends React.Component<Props, State> {
           <span className="Home-list-container--subtext">Today's schedule for</span>
           <ScheduleToday code={this.props.code} type={1} />
         </div>
-        <div className="Home-list-container">
+        {/* <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>
           {this.props.teachersWatching.length > 0 ? (
             <div>
@@ -42,7 +42,7 @@ class Home extends React.Component<Props, State> {
           ) : (
             <EmptyState kind={'room'} />
           )}
-        </div>
+        </div> */}
       </section>
     )
   }
