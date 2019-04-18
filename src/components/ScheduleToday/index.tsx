@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ScheduleToday.css';
 
 // Components
@@ -134,57 +135,65 @@ class ScheduleToday extends React.Component<Props, State> {
         <span className="SchedToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
             <div style={{ maxWidth: '600px' }}>
-              {this.state.schedule.length > 0 ? (
-                <div className={`SchedToday--container`} style={{
-                  // gridTemplateColumns: `95px 30px 1fr`,
-                  // gridTemplateRows: `repeat(${this.state.schedule.length}, 1fr)`,
-                  gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 95px 50px 1fr`,
-                }}>
-                  <div className={`SchedToday--line-container`} style={{ gridRowEnd: `${this.state.schedule.length + 1}` }}>
-                    <div className="SchedToday--line"></div>
-                  </div>
-                  {this.state.schedule.map((item, index) => (
-                    <div key={`${item.LSID}-${index}`} className={`SchedToday--item-container ${this.isCurrentLesson(item.StartTime, item.EndTime, 0)}`} style={{gridRowStart: `${index + 1}`}}>
-                      <div className="SchedToday--item-time">
-                        <div className="SchedToday--item-time-start">
-                          {item.PeriodStart != null ? (
-                            <span className="SchedToday--item-start-period">{item.PeriodStart}</span>
-                          ) : null}
-                          <span>-</span>
-                          {item.StartTime != null ? (
-                            <span className="SchedToday--item-start-time">{this.getTime(item.StartTime)}</span>
-                          ) : null}
-                        </div>
-                        <div className="SchedToday--item-time-end">
-                          {item.PeriodEnd != null ? (
-                            <span className="SchedToday--item-end-period">{item.PeriodEnd}</span>
-                          ) : null}
-                          <span>-</span>
-                          {item.EndTime != null ? (
-                            <span className="SchedToday--item-end-time">{this.getTime(item.EndTime)}</span>
-                          ) : null}
-                        </div>
-                      </div>
-                      <div className="SchedToday--item-circle-container">
-                        <div className={`SchedToday--item-circle ${this.isCurrentLesson(item.StartTime, item.EndTime, 1)}`}></div>
-                      </div>
-                      <div className="SchedToday--item-details">
-                        {item.Subject != null ? (
-                          <span className="SchedToday--item-details-subject">{item.Subject}</span>
-                        ) : null}
-                        {item.Class == undefined ? (
-                          <span className="SchedToday--item-details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
-                        ) : (
-                          <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
-                        )}
-                        {item.room.code != null ? (
-                          <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
-                        ) : null}
-                      </div>
+              <TransitionGroup>
+                <CSSTransition
+                  timeout={350}
+                  key={`${this.state.schedule.length > 0 ? 1 : 0}`}
+                  classNames="fade"
+                >
+                  {this.state.schedule.length > 0 ? (
+                  <div key={1} className={`SchedToday--container`} style={{
+                    // gridTemplateColumns: `95px 30px 1fr`,
+                    // gridTemplateRows: `repeat(${this.state.schedule.length}, 1fr)`,
+                    gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 95px 50px 1fr`,
+                  }}>
+                    <div className={`SchedToday--line-container`} style={{ gridRowEnd: `${this.state.schedule.length + 1}` }}>
+                      <div className="SchedToday--line"></div>
                     </div>
-                  ))}
-                </div>
-              ) : <Loader />}
+                    {this.state.schedule.map((item, index) => (
+                      <div key={`${item.LSID}-${index}`} className={`SchedToday--item-container ${this.isCurrentLesson(item.StartTime, item.EndTime, 0)}`} style={{gridRowStart: `${index + 1}`}}>
+                        <div className="SchedToday--item-time">
+                          <div className="SchedToday--item-time-start">
+                            {item.PeriodStart != null ? (
+                              <span className="SchedToday--item-start-period">{item.PeriodStart}</span>
+                            ) : null}
+                            <span>-</span>
+                            {item.StartTime != null ? (
+                              <span className="SchedToday--item-start-time">{this.getTime(item.StartTime)}</span>
+                            ) : null}
+                          </div>
+                          <div className="SchedToday--item-time-end">
+                            {item.PeriodEnd != null ? (
+                              <span className="SchedToday--item-end-period">{item.PeriodEnd}</span>
+                            ) : null}
+                            <span>-</span>
+                            {item.EndTime != null ? (
+                              <span className="SchedToday--item-end-time">{this.getTime(item.EndTime)}</span>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="SchedToday--item-circle-container">
+                          <div className={`SchedToday--item-circle ${this.isCurrentLesson(item.StartTime, item.EndTime, 1)}`}></div>
+                        </div>
+                        <div className="SchedToday--item-details">
+                          {item.Subject != null ? (
+                            <span className="SchedToday--item-details-subject">{item.Subject}</span>
+                          ) : null}
+                          {item.Class == undefined ? (
+                            <span className="SchedToday--item-details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
+                          ) : (
+                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
+                          )}
+                          {item.room.code != null ? (
+                            <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
+                          ) : null}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : <Loader key={0} />}
+                </CSSTransition>
+              </TransitionGroup>
             </div>
           ) :
           <EmptyState kind='no-schedule' />}

@@ -13,7 +13,9 @@ class Loader extends React.Component<Props, State> {
   public render() {
     return (
       <div className="Loader--container">
-        <CircularProgress size={60} thickness={5} />
+        <div className="Loader--circular-container">
+          <CircularProgress className="Loader--circular" size={60} thickness={5} />
+        </div>
       </div>
     )
   }

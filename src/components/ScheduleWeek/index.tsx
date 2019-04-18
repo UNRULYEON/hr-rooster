@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ScheduleWeek.css';
 
 //Components
@@ -478,11 +479,21 @@ class ScheduleWeek extends React.Component<Props, State> {
               </div>
               {this.getSched()}
             </div>
-            {this.state.loading ? (
-              <div className="ScheduleWeek--week-view-loading">
-                <Loader />
-              </div>
-            ) : null}
+            <TransitionGroup>
+              <CSSTransition
+                key={`${this.state.loading ? 0 : 1}`}
+                classNames="fade"
+                timeout={350}
+              >
+                {this.state.loading ? (
+                  <div className="ScheduleWeek--week-view-loading">
+                    <Loader key={0} />
+                  </div>
+                ) : (
+                  <div key={1}></div>
+                )}
+              </CSSTransition>
+            </TransitionGroup>
           </div>
         ) : null}
         {this.state.tab == 1 ? (
@@ -764,11 +775,21 @@ class ScheduleWeek extends React.Component<Props, State> {
                 </ul>
               </li>
             </List>
-            {this.state.loading ? (
-              <div className="ScheduleWeek--week-view-loading">
-                <Loader />
-              </div>
-            ) : null}
+            <TransitionGroup>
+              <CSSTransition
+                key={`${this.state.loading ? 0 : 1}`}
+                classNames="fade"
+                timeout={350}
+              >
+                {this.state.loading ? (
+                  <div className="ScheduleWeek--week-view-loading">
+                    <Loader key={0} />
+                  </div>
+                ) : (
+                  <div key={1}></div>
+                )}
+              </CSSTransition>
+            </TransitionGroup>
           </div>
         ) : null}
       </div>
