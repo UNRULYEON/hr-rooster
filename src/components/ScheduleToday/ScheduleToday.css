@@ -3,6 +3,12 @@
   font-weight: bold;
 }
 
+.SchedToday--wrapper{
+  max-width: 500px;
+  min-height: fit-content;
+  height: fit-content;
+}
+
 .SchedToday--container{
   display: grid;
   grid-row-gap: 15px;
@@ -126,8 +132,6 @@
     margin: 0 20px;
   }
 }
-
-
 
 @media screen and (max-width: 800px) {
   .SchedToday--title{

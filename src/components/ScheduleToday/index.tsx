@@ -134,7 +134,7 @@ class ScheduleToday extends React.Component<Props, State> {
       <div style={{ width: '-webkit-fill-available' }}>
         <span className="SchedToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
-            <div style={{ maxWidth: '600px' }}>
+            <div className="SchedToday--wrapper" style={{ height: `${this.state.schedule.length > 0 ? this.state.schedule.length * 100 + "px" : '200px'}` }}>
               <TransitionGroup>
                 <CSSTransition
                   timeout={350}
