@@ -156,6 +156,11 @@
   color: rgba(204, 0, 51, 1) !important;
 }
 
+.ScheduleWeek--list-item-text-primary{
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
 .ScheduleWeek--week-view-item-text,
 .ScheduleWeek--week-view-item-class-teacher,
 .ScheduleWeek--week-view-item-room{

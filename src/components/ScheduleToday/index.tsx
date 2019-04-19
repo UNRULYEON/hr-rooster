@@ -182,7 +182,7 @@ class ScheduleToday extends React.Component<Props, State> {
                             <span className="SchedToday--item-details-subject">{item.Text}</span>
                           ) : null}
                           {item.Class != null ? (
-                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/t/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
+                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
                           ) : null}
                           {item.Class != null && item.Teacher != null ? (
                             ` - `

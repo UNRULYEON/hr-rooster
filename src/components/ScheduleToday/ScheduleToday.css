@@ -1,6 +1,7 @@
-.ScheduleToday--title{
+.SchedToday--title{
   font-size: 1.5em;
   font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
 }
 
 .SchedToday--wrapper{
@@ -108,6 +109,8 @@
 
 .SchedToday--item-details-subject{
   font-size: 1.5em;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+  font-weight: bold;
 }
 
 .SchedToday--item-details-class-teacher{

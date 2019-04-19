@@ -15,6 +15,7 @@
 }
 
 .Home-list-container--subtext{
+  font-family: 'Roboto', sans-serif;
 }
 
 @media screen and (max-width: 1200px) {

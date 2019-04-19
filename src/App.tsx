@@ -213,23 +213,8 @@ class App extends React.Component<Props, State> {
                   <Searchbar
                     className="App-header-searchbar-container"
                     pose={this.state.searchbar ? 'visible' : 'hidden'}
-                    // pose={
-                    //   ...location.pathname == '/search' ? this.toggleSearchBar() :
-                    //   this.state.searchbar ? 'visible' : 'hidden'
-                    // }
-                    // pose={this.state.searchbar ? 'visible' : 'hidden'}
-                    // {...location}
                   >
                     <MuiThemeProvider theme={themeSearchbar}>
-                      {/* <TextField
-                        className="App-header-searchbar-input"
-                        color="inherit"
-                        placeholder="Search..."
-                        type="search"
-                        value={this.state.query}
-                        onChange={this.handleChange('query')}
-                        margin="none"
-                      /> */}
                       <input
                         className="App-header-searchbar-input"
                         placeholder="Search"
