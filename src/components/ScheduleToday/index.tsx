@@ -73,23 +73,25 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
-  // componentWillReceiveProps = (nextProps: Readonly<Props>) => {
-  //   let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
-  //   let url: string = `https://cors-anywhere.herokuapp.com/${api}${nextProps.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
-  //   fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
-  //     .then(data => {
-  //       if (data.lesson == null) {
-  //         this.setState({
-  //           schedule: null
-  //         })
-  //       } else {
-  //         this.setState({
-  //           schedule: data.lesson
-  //         })
-  //       }
-  //     })
-  //     .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
-  // }
+  componentWillReceiveProps = (nextProps: Readonly<Props>) => {
+    if (nextProps.code != this.props.code) {
+      let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+      let url: string = `https://cors-anywhere.herokuapp.com/${api}${nextProps.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
+      fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
+        .then(data => {
+          if (data.lesson == null) {
+            this.setState({
+              schedule: null
+            })
+          } else {
+            this.setState({
+              schedule: data.lesson
+            })
+          }
+        })
+        .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
+    }
+  }
 
   getTime = (time: string) => {
     if(time.length < 4) {
