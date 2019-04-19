@@ -57,7 +57,10 @@ class ScheduleWeek extends React.Component<Props, State> {
     tab: 0,
   };
 
+  _isMounted = false;
+
   componentDidMount = () => {
+    this._isMounted = true;
     if (this.props.code != "") {this.getDate(new Date())}
   }
 
@@ -66,103 +69,62 @@ class ScheduleWeek extends React.Component<Props, State> {
     let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
     fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
       .then(data => {
-        let monday: Array<any> = [];
-        let tuesday: Array<any> = [];
-        let wednesday: Array<any> = [];
-        let thursday: Array<any> = [];
-        let friday: Array<any> = [];
-        if (data.lesson != null) {
-          for (let i = 0; i < data.lesson.length; i++) {
-            switch (data.lesson[i].DayNumber) {
-              case "1":
-                monday.push(data.lesson[i])
-                break;
-              case "2":
-                tuesday.push(data.lesson[i])
-                break;
-              case "3":
-                wednesday.push(data.lesson[i])
-                break;
-              case "4":
-                thursday.push(data.lesson[i])
-                break;
-              case "5":
-                friday.push(data.lesson[i])
-                break;
+        if (this._isMounted) {
+          let monday: Array<any> = [];
+          let tuesday: Array<any> = [];
+          let wednesday: Array<any> = [];
+          let thursday: Array<any> = [];
+          let friday: Array<any> = [];
+          if (data.lesson != null) {
+            for (let i = 0; i < data.lesson.length; i++) {
+              switch (data.lesson[i].DayNumber) {
+                case "1":
+                  monday.push(data.lesson[i])
+                  break;
+                case "2":
+                  tuesday.push(data.lesson[i])
+                  break;
+                case "3":
+                  wednesday.push(data.lesson[i])
+                  break;
+                case "4":
+                  thursday.push(data.lesson[i])
+                  break;
+                case "5":
+                  friday.push(data.lesson[i])
+                  break;
+              }
             }
+            this.setState({
+              monday,
+              tuesday,
+              wednesday,
+              thursday,
+              friday,
+              loading: false,
+            })
+          } else {
+            this.setState({
+              monday,
+              tuesday,
+              wednesday,
+              thursday,
+              friday,
+              loading: false,
+            })
           }
-          this.setState({
-            monday,
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            loading: false,
-          })
-        } else {
-          this.setState({
-            monday,
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            loading: false,
-          })
         }
       })
-      .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
+      .catch(err => {
+        if (this._isMounted) {
+          this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`)
+        }
+      })
   }
 
-  // componentWillReceiveProps = (nextProps: Readonly<Props>) => {
-  //   console.log(nextProps.code)
-  //   let dates: Array<string> = this.getWeekDates(new Date())
-  //   let url: string = `https://cors-anywhere.herokuapp.com/${api}${nextProps.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
-  //   fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
-  //     .then(data => {
-  //       console.log(data.lesson)
-  //       let monday: Array<any> = [];
-  //       let tuesday: Array<any> = [];
-  //       let wednesday: Array<any> = [];
-  //       let thursday: Array<any> = [];
-  //       let friday: Array<any> = [];
-  //       for (let i = 0; i < data.lesson.length; i++) {
-  //         switch (data.lesson[i].DayNumber) {
-  //           case 1:
-  //             monday.push(data.lesson[i])
-  //             break;
-  //           case 2:
-  //             tuesday.push(data.lesson[i])
-  //             break;
-  //           case 3:
-  //             wednesday.push(data.lesson[i])
-  //             break;
-  //           case 4:
-  //             thursday.push(data.lesson[i])
-  //             break;
-  //           case 5:
-  //             friday.push(data.lesson[i])
-  //             break;
-  //         }
-  //       }
-  //       console.log(monday)
-  //       console.log(tuesday)
-  //       console.log(wednesday)
-  //       console.log(thursday)
-  //       console.log(friday)
-  //       if (data.lesson == null) {
-  //         console.log(`no schedule for today`)
-  //       } else if (this.state.monday != [] || this.state.tuesday != [] || this.state.wednesday != [] || this.state.thursday != [] || this.state.friday != []){
-  //         this.setState({
-  //           monday,
-  //           tuesday,
-  //           wednesday,
-  //           thursday,
-  //           friday,
-  //         })
-  //       }
-  //     })
-  //     .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
-  // }
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  }
 
   getWeekDates = (date: Date) => {
     let weekday: number = date.getDay()

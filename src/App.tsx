@@ -342,16 +342,6 @@ class App extends React.Component<Props, State> {
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{this.state.snackbarMessage}</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={this.handleSnackbarClose}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
         />
       </div>
     );

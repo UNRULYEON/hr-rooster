@@ -10,6 +10,7 @@ import EmptyState from '../../components/EmptyState'
 // Material-UI
 import LocationOnIcon from '@material-ui/icons/LocationOnRounded';
 import ClassIcon from '@material-ui/icons/ClassRounded';
+import { __importStar } from 'tslib';
 
 type Lesson = {
   Class: string | null,
@@ -53,23 +54,32 @@ class ScheduleToday extends React.Component<Props, State> {
     schedule: []
   };
 
+  _isMounted = false
+
   componentDidMount = () => {
+    this._isMounted = true;
     if (this.props.code != "") {
       let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
       let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
       fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
         .then(data => {
-          if (data.lesson == null) {
-            this.setState({
-              schedule: null
-            })
-          } else {
-            this.setState({
-              schedule: data.lesson
-            })
+          if (this._isMounted) {
+            if (data.lesson == null) {
+              this.setState({
+                schedule: null
+              })
+            } else {
+              this.setState({
+                schedule: data.lesson
+              })
+            }
           }
         })
-        .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
+        .catch(err => {
+          if (this._isMounted) {
+            this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`)
+          }
+        })
     }
   }
 
@@ -79,18 +89,24 @@ class ScheduleToday extends React.Component<Props, State> {
       let url: string = `https://cors-anywhere.herokuapp.com/${api}${nextProps.code}&type=${this.props.type}&startDate=${today}&endDate=${today}&json`
       fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
         .then(data => {
-          if (data.lesson == null) {
-            this.setState({
-              schedule: null
-            })
-          } else {
-            this.setState({
-              schedule: data.lesson
-            })
+          if (this._isMounted) {
+            if (data.lesson == null) {
+              this.setState({
+                schedule: null
+              })
+            } else {
+              this.setState({
+                schedule: data.lesson
+              })
+            }
           }
         })
         .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
     }
+  }
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   }
 
   getTime = (time: string) => {
