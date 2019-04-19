@@ -29,6 +29,7 @@ import { InlineDatePicker } from "material-ui-pickers";
 type Props = {
   code: string,
   type: number,
+  handleSnackbarOpen: (message: string) => void
 }
 
 type State = {
@@ -109,7 +110,7 @@ class ScheduleWeek extends React.Component<Props, State> {
           })
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
   }
 
   // componentWillReceiveProps = (nextProps: Readonly<Props>) => {
@@ -160,7 +161,7 @@ class ScheduleWeek extends React.Component<Props, State> {
   //         })
   //       }
   //     })
-  //     .catch(err => console.log(err))
+  //     .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
   // }
 
   getWeekDates = (date: Date) => {

@@ -10,7 +10,8 @@ type Props = {
   code: string,
   schedule: [],
   teachersWatching: [],
-  roomsWatching: []
+  roomsWatching: [],
+  handleSnackbarOpen: (message: string) => void
 }
 
 type State = {}
@@ -21,7 +22,7 @@ class Home extends React.Component<Props, State> {
       <section className="Home-container">
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Today's schedule for</span>
-          <ScheduleToday code={this.props.code} type={1} />
+          <ScheduleToday code={this.props.code} type={1} handleSnackbarOpen={this.props.handleSnackbarOpen} />
         </div>
         {/* <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>

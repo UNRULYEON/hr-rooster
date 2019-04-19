@@ -7,7 +7,8 @@ import ScheduleWeek from '../../components/ScheduleWeek'
 
 type Props = {
   match: any,
-  type: number
+  type: number,
+  handleSnackbarOpen: (message: string) => void
 }
 
 type State = {}
@@ -16,8 +17,8 @@ class Teacher extends React.Component<Props, State> {
   public render() {
     return (
       <section className="Teacher-container">
-        <ScheduleToday code={this.props.match.params.code} type={this.props.type} />
-        <ScheduleWeek code={this.props.match.params.code} type={this.props.type} />
+        <ScheduleToday code={this.props.match.params.code} type={this.props.type} handleSnackbarOpen={this.props.handleSnackbarOpen} />
+        <ScheduleWeek code={this.props.match.params.code} type={this.props.type} handleSnackbarOpen={this.props.handleSnackbarOpen} />
       </section>
     )
   }

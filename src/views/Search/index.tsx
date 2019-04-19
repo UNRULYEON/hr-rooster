@@ -43,6 +43,7 @@ type Props = {
   location: any,
   history: any,
   match: any,
+  handleSnackbarOpen: (message: string) => void
 }
 
 type State = {
@@ -123,10 +124,7 @@ class Search extends React.Component<Props, State> {
           result.push(res.value[i]);
         }
       })
-      .catch(err => {
-        console.log(err)
-        return err
-      })
+      .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
     this.setState({
       ClassRes: result
     })
@@ -142,10 +140,7 @@ class Search extends React.Component<Props, State> {
           result.push(res.value[i]);
         }
       })
-      .catch(err => {
-        console.log(err)
-        return err
-      })
+      .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
     this.setState({
       TeacherRes: result
     })
@@ -161,10 +156,7 @@ class Search extends React.Component<Props, State> {
           result.push(res.value[i]);
         }
       })
-      .catch(err => {
-        console.log(err)
-        return err
-      })
+      .catch(err => this.props.handleSnackbarOpen(`There seems to be a problem. Try reloading the page. ERR: ${err}`))
     this.setState({
       RoomRes: result
     })

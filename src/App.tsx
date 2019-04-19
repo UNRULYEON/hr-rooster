@@ -21,6 +21,8 @@ import SettingsIcon from '@material-ui/icons/SettingsRounded';
 // import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
+// import Button from '@material-ui/core/Button';
 
 // Pose
 import posed from 'react-pose';
@@ -47,6 +49,9 @@ interface State {
   searchbar: boolean,
   query: string,
   settingsDialogOpen: boolean,
+  helpDialogOpen: boolean,
+  snackbar: boolean,
+  snackbarMessage: string,
 }
 
 const Searchbar = posed.div({
@@ -88,6 +93,9 @@ class App extends React.Component<Props, State> {
       searchbar: false,
       query: '',
       settingsDialogOpen: false,
+      helpDialogOpen: false,
+      snackbar: false,
+      snackbarMessage: '',
     };
     this.searchPage = React.createRef();
   }
@@ -137,6 +145,18 @@ class App extends React.Component<Props, State> {
     this.setState({
       [name]: event.target.value,
     } as unknown as Pick<State, keyof State>);
+  };
+
+  handleSnackbarOpen = (message: string) => {
+    this.setState({ snackbar: true, snackbarMessage: message });
+  };
+
+  handleSnackbarClose = (reason: any) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ snackbar: false });
   };
 
   handleCodeChange = (name: string, value: string) => {
@@ -249,24 +269,28 @@ class App extends React.Component<Props, State> {
                         code={this.state.code}
                         teachersWatching={this.state.teachersWatching}
                         roomsWatching={this.state.roomsWatching}
+                        handleSnackbarOpen={this.handleSnackbarOpen}
                     />} />
                     <Route path="/c/:code"
                       exact
                       render={(props) => <Class
                         {...props}
                         type={1}
+                        handleSnackbarOpen={this.handleSnackbarOpen}
                     />} />
                     <Route path="/t/:code"
                       exact
                       render={(props) => <Teacher
                         {...props}
                         type={2}
+                        handleSnackbarOpen={this.handleSnackbarOpen}
                     />} />
                     <Route path="/r/:code"
                       exact
                       render={(props) => <Room
                         {...props}
                         type={4}
+                        handleSnackbarOpen={this.handleSnackbarOpen}
                     />} />
                     <Route path={['/s', '/s/:q']}
                       exact
@@ -275,6 +299,7 @@ class App extends React.Component<Props, State> {
                         q={this.state.query}
                         toggleSearchbar={this.toggleSearchbar}
                         ref={this.searchPage}
+                        handleSnackbarOpen={this.handleSnackbarOpen}
                         {...props}
                     />} />
                   </Switch>
@@ -304,6 +329,29 @@ class App extends React.Component<Props, State> {
           userType={this.state.userType}
           toggleSettingsDialog={this.toggleSettingsDialog}
           handleCodeChange={this.handleCodeChange}
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackbar}
+          autoHideDuration={6000}
+          onClose={this.handleSnackbarClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackbarMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleSnackbarClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
       </div>
     );
