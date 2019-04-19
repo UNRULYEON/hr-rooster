@@ -256,11 +256,13 @@ class ScheduleWeek extends React.Component<Props, State> {
   };
 
   handleDateChange = (date: any) => {
-    this.setState({
-      currentDate: new Date(date),
-      loading: true,
-    })
-    this.getDate(new Date(date))
+    if (new Date(date).getDate() != this.state.currentDate.getDate() || new Date(date).getMonth() != this.state.currentDate.getMonth() || new Date(date).getFullYear() != this.state.currentDate.getFullYear()) {
+      this.setState({
+        currentDate: new Date(date),
+        loading: true,
+      })
+      this.getDate(new Date(date))
+    }
   }
 
   handleDateChangePrev = () => {
