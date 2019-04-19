@@ -115,7 +115,7 @@ class Search extends React.Component<Props, State> {
 
   fetchClasses = async (query: string) => {
     let result: Array<string> = []
-    await fetch(`http://api.hr-rooster.nl/Class?$filter=contains(tolower(Class), tolower('${query}'))`)
+    await fetch(`https://api.hr-rooster.nl/Class?$filter=contains(tolower(Class), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
         console.log(res.value)
@@ -134,7 +134,7 @@ class Search extends React.Component<Props, State> {
 
   fetchTeachers = async (query: string) => {
     let result: Array<string> = []
-    await fetch(`http://api.hr-rooster.nl/Teacher?$filter=contains(tolower(Teacher), tolower('${query}'))`)
+    await fetch(`https://api.hr-rooster.nl/Teacher?$filter=contains(tolower(Teacher), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
         console.log(res.value)
@@ -153,7 +153,7 @@ class Search extends React.Component<Props, State> {
 
   fetchRooms = async (query: string) => {
     let result: Array<string> = []
-    await fetch(`http://api.hr-rooster.nl/Room?$filter=contains(tolower(Room), tolower('${query}'))`)
+    await fetch(`https://api.hr-rooster.nl/Room?$filter=contains(tolower(Room), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
         console.log(res.value)
