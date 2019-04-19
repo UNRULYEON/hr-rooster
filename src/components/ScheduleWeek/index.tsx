@@ -62,8 +62,8 @@ class ScheduleWeek extends React.Component<Props, State> {
 
   getDate = (date: Date) => {
     let dates: Array<string> = this.getWeekDates(date)
-    let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
-    fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
+    let url: string = `${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
+    fetch(url).then(res => res.json())
       .then(data => {
         let monday: Array<any> = [];
         let tuesday: Array<any> = [];
@@ -286,6 +286,12 @@ class ScheduleWeek extends React.Component<Props, State> {
     }
   }
 
+  formatWeekSelectLabel = (date: Date, invalidLabel: string) => {
+    let dates: string[] = this.getWeekDates(new Date(date));
+    let options = {month: 'long'};
+    return `${new Date(dates[0]).getDate()} ${new Intl.DateTimeFormat('en-GB', options).format(new Date(dates[0]))} - ${new Date(dates[1]).getDate()} ${new Intl.DateTimeFormat('en-GB', options).format(new Date(dates[1]))}`;
+  };
+
   handleDateChange = (date: any) => {
     this.setState({
       currentDate: new Date(date),
@@ -331,6 +337,7 @@ class ScheduleWeek extends React.Component<Props, State> {
               value={this.state.currentDate}
               onChange={this.handleDateChange}
               disabled={this.state.loading}
+              labelFunc={this.formatWeekSelectLabel}
             />
           </Tooltip>
           <Tooltip title="Next week" enterDelay={500} leaveDelay={200}>
