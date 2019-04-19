@@ -178,13 +178,19 @@ class ScheduleToday extends React.Component<Props, State> {
                         <div className="SchedToday--item-details">
                           {item.Subject != null ? (
                             <span className="SchedToday--item-details-subject">{item.Subject}</span>
+                          ) : item.Text != null ? (
+                            <span className="SchedToday--item-details-subject">{item.Text}</span>
                           ) : null}
-                          {item.Class == undefined ? (
+                          {item.Class != null ? (
+                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/t/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
+                          ) : null}
+                          {item.Class != null && item.Teacher != null ? (
+                            ` - `
+                          ) : null}
+                          {item.Teacher != null ? (
                             <span className="SchedToday--item-details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
-                          ) : (
-                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><div><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link> - <Link to={`/t/${item.Teacher}`}>{item.Teacher.toUpperCase()}</Link></div></span>
-                          )}
-                          {item.room.code != null ? (
+                          ) : null}
+                          {item.room != null ? (
                             <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
                           ) : null}
                         </div>
