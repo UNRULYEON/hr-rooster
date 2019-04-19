@@ -62,8 +62,8 @@ class ScheduleWeek extends React.Component<Props, State> {
 
   getDate = (date: Date) => {
     let dates: Array<string> = this.getWeekDates(date)
-    let url: string = `${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
-    fetch(url).then(res => res.json())
+    let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
+    fetch(url, {headers: {'Origin': '',}}).then(res => res.json())
       .then(data => {
         let monday: Array<any> = [];
         let tuesday: Array<any> = [];
