@@ -16,6 +16,8 @@
   margin: 0;
   margin-top: 20px;
   position: absolute;
+  max-width: 500px;
+  width: 100%;
 }
 
 .SchedToday--line-container{
@@ -131,6 +133,7 @@
   .SchedToday--container{
     margin-left: 20px;
     margin-right: 20px;
+    width: calc(100% - 40px);
   }
 }
 
