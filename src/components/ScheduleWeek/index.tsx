@@ -251,8 +251,8 @@ class ScheduleWeek extends React.Component<Props, State> {
 
   formatWeekSelectLabel = (date: Date, invalidLabel: string) => {
     let dates: string[] = this.getWeekDates(new Date(date));
-    let options = {month: 'long'};
-    return `${new Date(dates[0]).getDate()} ${new Intl.DateTimeFormat('en-GB', options).format(new Date(dates[0]))} - ${new Date(dates[1]).getDate()} ${new Intl.DateTimeFormat('en-GB', options).format(new Date(dates[1]))}`;
+    let monthNames: any = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
+    return `${new Date(dates[0]).getDate()} ${monthNames[new Date(dates[0]).getMonth()]} - ${new Date(dates[1]).getDate()} ${monthNames[new Date(dates[1]).getMonth()]}`;
   };
 
   handleDateChange = (date: any) => {
