@@ -38,7 +38,7 @@
 
 .SchedToday--item-container{
   display: grid;
-  grid-template-columns: 85px 50px 1fr;
+  grid-template-columns: 65px 50px 1fr;
   grid-row-gap: 15px;
   grid-column-start: 1;
   grid-column-end: 4;
@@ -75,6 +75,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  font-size: .8em;
 }
 
 .SchedToday--item-start-period, .SchedToday--item-end-period{

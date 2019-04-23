@@ -126,8 +126,8 @@
 }
 
 .ScheduleWeek--week-view-item{
-  background-color: #222222;
-  margin: 1px;
+  background-color: #3f3f3f;
+  margin: 1px 1px 0 0;
   padding: 3px;
   display: flex;
   flex-flow: column nowrap;

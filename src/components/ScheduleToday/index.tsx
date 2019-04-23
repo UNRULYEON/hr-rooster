@@ -164,7 +164,7 @@ class ScheduleToday extends React.Component<Props, State> {
                   <div key={1} className={`SchedToday--container`} style={{
                     // gridTemplateColumns: `95px 30px 1fr`,
                     // gridTemplateRows: `repeat(${this.state.schedule.length}, 1fr)`,
-                    gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 95px 50px 1fr`,
+                    gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 75px 50px 1fr`,
                   }}>
                     <div className={`SchedToday--line-container`} style={{ gridRowEnd: `${this.state.schedule.length + 1}` }}>
                       <div className="SchedToday--line"></div>
@@ -196,18 +196,18 @@ class ScheduleToday extends React.Component<Props, State> {
                         </div>
                         <div className="SchedToday--item-details">
                           {item.Subject != null ? (
-                            <span className="SchedToday--item-details-subject">{item.Subject}</span>
+                            <span className="SchedToday--item-details-subject" style={{ display: 'block' }}>{item.Subject}</span>
                           ) : item.Text != null ? (
-                            <span className="SchedToday--item-details-subject">{item.Text}</span>
+                            <span className="SchedToday--item-details-subject" style={{ display: 'block' }}>{item.Text}</span>
                           ) : null}
                           {item.Class != null ? (
-                            <span className="SchedToday--item-details-class-teacher"><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
+                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
                           ) : null}
                           {item.Class != null && item.Teacher != null ? (
-                            ` - `
+                            <span style={{ display: 'inline' }}> - </span>
                           ) : null}
                           {item.Teacher != null ? (
-                            <span className="SchedToday--item-details-class-teacher"><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
+                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
                           ) : null}
                           {item.room != null ? (
                             <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
