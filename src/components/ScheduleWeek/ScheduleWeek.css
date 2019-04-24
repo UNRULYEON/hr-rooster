@@ -127,7 +127,7 @@
 
 .ScheduleWeek--week-view-item{
   background-color: #3f3f3f;
-  margin: 1px 1px 0 0;
+  margin: 1px 0 0 1px;
   padding: 3px;
   display: flex;
   flex-flow: column nowrap;
@@ -136,8 +136,9 @@
 .ScheduleWeek--week-view-item-current{
   border: 5px solid rgba(204, 0, 51, 0.6);
   background-color: rgba(51, 30, 36, 1) !important;
-  border-radius: 5px;
-  margin: 0 !important;
+  /* border-radius: 5px; */
+  margin: 0 -1px -1px 0 !important;
+  z-index: 10;
 }
 
 .ScheduleWeek--week-view-item-subject{
@@ -240,6 +241,22 @@
     left: 0;
     background-color: rgba(34, 34, 34, 1);
     z-index: 20;
+  }
+
+  .ScheduleWeek--week-view-item{
+    background-color: #3f3f3f;
+    margin: 1px 1px 0 0;
+    padding: 3px;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .ScheduleWeek--week-view-item-current{
+    border: 5px solid rgba(204, 0, 51, 0.6);
+    background-color: rgba(51, 30, 36, 1) !important;
+    /* border-radius: 5px; */
+    margin: 0 0 -1px -1px !important;
+    z-index: 10;
   }
 
   .ScheduleWeek--week-view-item-subject{
