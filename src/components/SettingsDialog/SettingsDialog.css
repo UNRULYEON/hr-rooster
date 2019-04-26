@@ -1,5 +1,6 @@
 .Dialog-settings--content-container {
   min-height: 300px;
+  padding-top: 24px !important;
 }
 
 .Dialog-settings-tabs > div > div {
@@ -9,7 +10,6 @@
 .SettingsDialog--tab-current-code {
   display: block;
   text-align: center;
-  margin-top: 10px;
 }
 
 .Dialog-settings--actions-message{
@@ -17,4 +17,7 @@
   width: 100%;
   color: #8f8f8f;
   font-style: italic;
+}
+
+.SettingsDialog--tab-container{
 }

@@ -22,7 +22,7 @@ class Home extends React.Component<Props, State> {
       <section className="Home-container">
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Today's schedule for</span>
-          <ScheduleToday code={this.props.code} type={1} handleSnackbarOpen={this.props.handleSnackbarOpen} />
+          <ScheduleToday code={this.props.code} type={this.props.userType == 'Student' ? 1 : 2} handleSnackbarOpen={this.props.handleSnackbarOpen} />
         </div>
         {/* <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>

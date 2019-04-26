@@ -175,6 +175,12 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('settings', JSON.stringify(settings));
   }
 
+  handleResetSettings = () => {
+    localStorage.removeItem('settings');
+    localStorage.removeItem('new_user');
+    location.reload();
+  }
+
   toggleSearchbarAndRedirect = (history: any) => {
     if (!this.state.searchbar) {
       // Go to search
@@ -329,6 +335,7 @@ class App extends React.Component<Props, State> {
           userType={this.state.userType}
           toggleSettingsDialog={this.toggleSettingsDialog}
           handleCodeChange={this.handleCodeChange}
+          handleResetSettings={this.handleResetSettings}
         />
         <Snackbar
           anchorOrigin={{

@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
@@ -28,8 +29,9 @@ type Props = {
   open: boolean,
   userType: string,
   code: string,
-  toggleSettingsDialog: () => {}
-  handleCodeChange: (name: string, value: string) => {}
+  toggleSettingsDialog: () => {},
+  handleCodeChange: (name: string, value: string) => {},
+  handleResetSettings: () => {},
 }
 
 type State = {
@@ -43,6 +45,7 @@ type State = {
   tab: number,
   newClassCode: string,
   newTeacherCode: string,
+  loadingResetButton: boolean,
 }
 
 const api: string = 'https://api.hr-rooster.nl/';
@@ -60,7 +63,8 @@ class SettingsDialog extends React.Component<Props, State> {
       teachersFiltered: [],
       tab: 0,
       newClassCode: '',
-      newTeacherCode: ''
+      newTeacherCode: '',
+      loadingResetButton: false,
     };
   };
 
@@ -101,6 +105,13 @@ class SettingsDialog extends React.Component<Props, State> {
     } as unknown as Pick<State, keyof State>);
     this.props.handleCodeChange(name, event.target.value)
   };
+
+  handleReset = () => {
+    this.setState({
+      loadingResetButton: true
+    });
+    this.props.handleResetSettings()
+  }
 
   // Handle search
   handleSearch = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,7 +166,26 @@ class SettingsDialog extends React.Component<Props, State> {
           <Tab label="Rooms you're following" /> */}
         </Tabs>
         <DialogContent className="Dialog-settings--content-container">
-          {this.state.tab == 0 && <div className="SettingsDialog--tab-container"></div>}
+          {this.state.tab == 0 && <div className="SettingsDialog--tab-container">
+            <div style={{position: 'relative'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.state.loadingResetButton}
+                onClick={this.handleReset}
+                fullWidth
+              >
+                Reset settings
+              </Button>
+              {this.state.loadingResetButton && <CircularProgress size={24} style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                marginTop: -12,
+                marginLeft: -12,
+              }} />}
+            </div>
+          </div>}
           {this.state.tab == 1 && (
             <div>
               {this.props.userType == 'Student' ? (

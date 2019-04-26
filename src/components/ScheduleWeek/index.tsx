@@ -203,20 +203,22 @@ class ScheduleWeek extends React.Component<Props, State> {
           >
             {week[i][j].Subject != null ? (
               <span className="ScheduleWeek--week-view-item-subject">{week[i][j].Subject} {same > 1 ? `+${same}` : null}</span>
+            ) : week[i][j].Text != null ? (
+              <span className="ScheduleWeek--week-view-item-subject">{week[i][j].Text} {same > 1 ? `+${same}` : null}</span>
             ) : null}
             <span className="ScheduleWeek--week-view-item-class-teacher">
               {week[i][j].Class != null ? (
-                week[i][j].Class
+                week[i][j].Class.toUpperCase()
               ) : null}
               {week[i][j].Class != null && week[i][j].Teacher != null ? (
                 ` - `
               ) : null}
               {week[i][j].Teacher != null ? (
-                `${week[i][j].Teacher}`
+                `${week[i][j].Teacher.toUpperCase()}`
               ) : null}
             </span>
             {week[i][j].room != null ? (
-              <span className="ScheduleWeek--week-view-item-room">{week[i][j].room.code}</span>
+              <span className="ScheduleWeek--week-view-item-room">{week[i][j].room.code.toUpperCase()}</span>
             ) : null }
           </div>
         )
@@ -507,15 +509,15 @@ class ScheduleWeek extends React.Component<Props, State> {
                             </span><br/>
                             <span>
                               {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
                               ) : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
                               {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
                               ) : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -562,15 +564,15 @@ class ScheduleWeek extends React.Component<Props, State> {
                             </span><br/>
                             <span>
                               {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
                               ) : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
                               {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
                               ) : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -617,11 +619,11 @@ class ScheduleWeek extends React.Component<Props, State> {
                             </span><br/>
                             <span>
                               {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
                               ) : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
                               {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
                               ) : null}
                             </span><br/>
                             {item.room != null ? (
@@ -672,15 +674,15 @@ class ScheduleWeek extends React.Component<Props, State> {
                             </span><br/>
                             <span>
                               {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
                               ) : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
                               {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
                               ) : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -727,15 +729,15 @@ class ScheduleWeek extends React.Component<Props, State> {
                             </span><br/>
                             <span>
                               {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class}</Link>
+                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
                               ) : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
                               {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher}</Link>
+                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
                               ) : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
                             ) : null}
                           </div>
                         } />
