@@ -11,6 +11,7 @@ import Teacher from './views/Teacher'
 import Room from './views/Room'
 import Search from './views/Search'
 import SettingsDialog from './components/SettingsDialog'
+import HelpDialog from './components/HelpDialog'
 
 // Material Components
 import IconButton from '@material-ui/core/IconButton';
@@ -218,6 +219,10 @@ class App extends React.Component<Props, State> {
     this.setState({ settingsDialogOpen: !this.state.settingsDialogOpen })
   }
 
+  toggleHelpDialog = () => {
+    this.setState({ helpDialogOpen: !this.state.helpDialogOpen })
+  }
+
   public render() {
     return (
       <div className="App">
@@ -319,7 +324,7 @@ class App extends React.Component<Props, State> {
         )}
         <div className="App-settings-container">
           <Tooltip title="Help" enterDelay={500} leaveDelay={200}>
-            <IconButton aria-label="Help">
+            <IconButton aria-label="Help" onClick={this.toggleHelpDialog}>
               <HelpIcon />
             </IconButton>
           </Tooltip>
@@ -336,6 +341,12 @@ class App extends React.Component<Props, State> {
           toggleSettingsDialog={this.toggleSettingsDialog}
           handleCodeChange={this.handleCodeChange}
           handleResetSettings={this.handleResetSettings}
+        />
+        <HelpDialog
+          open={this.state.helpDialogOpen}
+          code={this.state.code}
+          userType={this.state.userType}
+          toggleHelpDialog={this.toggleHelpDialog}
         />
         <Snackbar
           anchorOrigin={{
