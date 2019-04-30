@@ -164,7 +164,7 @@ class ScheduleToday extends React.Component<Props, State> {
                   <div key={1} className={`SchedToday--container`} style={{
                     // gridTemplateColumns: `95px 30px 1fr`,
                     // gridTemplateRows: `repeat(${this.state.schedule.length}, 1fr)`,
-                    gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 75px 50px 1fr`,
+                    gridTemplate: `repeat(${this.state.schedule.length}, [row] 1fr) / 70px 50px 1fr`,
                   }}>
                     <div className={`SchedToday--line-container`} style={{ gridRowEnd: `${this.state.schedule.length + 1}` }}>
                       <div className="SchedToday--line"></div>
