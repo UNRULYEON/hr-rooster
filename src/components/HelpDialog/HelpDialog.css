@@ -1,0 +1,66 @@
+.DialogHelp--container{
+  width: 100%;
+  max-width: 500px;
+}
+
+.Dialog-Help--content-container {
+  min-height: 300px;
+  padding: 0 !important;
+}
+
+.HelpDialog-content--container{
+  display: grid !important;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+.HelpDialog-content--header-1{
+  font-size: 1.75em;
+  font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+.HelpDialog-content--header-2{
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+.HelpDialog-content--header-3{
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+.HelpDialog-content--list{
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+.HelpDialog-content--divider{
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+.HelpDialog--content-figure-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin: 16px 0;
+}
+
+.HelpDialog--content-figure-image{
+  place-self: center;
+  width: 100%;
+  max-width: inherit;
+}
+
+.HelpDialog--content-figure-figcaption{
+  font-size: .8em;
+  font-style: italic;
+  margin-top: 5px;
+  text-align: center;
+  font-weight: 100;
+}
