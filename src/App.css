@@ -61,7 +61,15 @@
 
 a{
   color: inherit;
-  text-decoration-line: none;
+  text-decoration: none;
+  border-bottom: 3px solid rgba(208, 0, 68, .5);
+  transition: all .2s ease-in-out;
+  display: inline-block;
+}
+
+a:hover{
+  border-bottom: 3px solid rgba(208, 0, 68, 1);
+  transition: all .2s ease-in-out;
 }
 
 .fade-appear,
