@@ -208,17 +208,17 @@ class ScheduleWeek extends React.Component<Props, State> {
             ) : null}
             <span className="ScheduleWeek--week-view-item-class-teacher">
               {week[i][j].Class != null ? (
-                week[i][j].Class.toUpperCase()
+                this.getParsedCode(week[i][j].Class.toUpperCase(), 'c')
               ) : null}
               {week[i][j].Class != null && week[i][j].Teacher != null ? (
                 ` - `
               ) : null}
               {week[i][j].Teacher != null ? (
-                `${week[i][j].Teacher.toUpperCase()}`
+                this.getParsedCode(week[i][j].Teacher.toUpperCase(), 't')
               ) : null}
             </span>
             {week[i][j].room != null ? (
-              <span className="ScheduleWeek--week-view-item-room">{week[i][j].room.code.toUpperCase()}</span>
+              <span className="ScheduleWeek--week-view-item-room">{this.getParsedCode(week[i][j].room.code.toUpperCase(), 'r')}</span>
             ) : null }
           </div>
         )
@@ -249,6 +249,23 @@ class ScheduleWeek extends React.Component<Props, State> {
     } else {
       return `${time.substring(0,2)}:${time.substring(2,4)}`
     }
+  }
+
+  getParsedCode = (code: string, type: string) => {
+    let regex: RegExp = /(.+?)(?:,|$)/g;
+    let regexParsed: string[] | null = code.match(regex);
+    let parsed: any[] = [];
+    if (regexParsed != null) {
+      for (let i = 0; i < regexParsed.length; i++) {
+        parsed.push(
+          <Link to={`/${type}/${regexParsed[i].replace(/[, ]+/g, " ").trim()}`}>{regexParsed[i].replace(/[, ]+/g, " ").trim()}</Link>
+        )
+        if (regexParsed.length != 1 && i < regexParsed.length - 1) {
+          parsed.push(', ')
+        }
+      }
+    }
+    return parsed
   }
 
   formatWeekSelectLabel = (date: Date, invalidLabel: string) => {
@@ -508,16 +525,12 @@ class ScheduleWeek extends React.Component<Props, State> {
                               ) : null}
                             </span><br/>
                             <span>
-                              {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Class != null ? this.getParsedCode(item.Class.toUpperCase(), 'c') : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Teacher != null ? this.getParsedCode(item.Teacher.toUpperCase(), 't') : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
+                              <span>{item.room.code != null ? this.getParsedCode(item.room.code.toUpperCase(), 'r') : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -563,16 +576,12 @@ class ScheduleWeek extends React.Component<Props, State> {
                               ) : null}
                             </span><br/>
                             <span>
-                              {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Class != null ? this.getParsedCode(item.Class.toUpperCase(), 'c') : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Teacher != null ? this.getParsedCode(item.Teacher.toUpperCase(), 't') : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
+                              <span>{item.room.code != null ? this.getParsedCode(item.room.code.toUpperCase(), 'r') : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -618,16 +627,12 @@ class ScheduleWeek extends React.Component<Props, State> {
                               ) : null}
                             </span><br/>
                             <span>
-                              {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Class != null ? this.getParsedCode(item.Class.toUpperCase(), 'c') : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Teacher != null ? this.getParsedCode(item.Teacher.toUpperCase(), 't') : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code}` : null}</span>
+                              <span>{item.room.code != null ? this.getParsedCode(item.room.code.toUpperCase(), 'r') : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -673,16 +678,12 @@ class ScheduleWeek extends React.Component<Props, State> {
                               ) : null}
                             </span><br/>
                             <span>
-                              {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Class != null ? this.getParsedCode(item.Class.toUpperCase(), 'c') : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Teacher != null ? this.getParsedCode(item.Teacher.toUpperCase(), 't') : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
+                              <span>{item.room.code != null ? this.getParsedCode(item.room.code.toUpperCase(), 'r') : null}</span>
                             ) : null}
                           </div>
                         } />
@@ -728,16 +729,12 @@ class ScheduleWeek extends React.Component<Props, State> {
                               ) : null}
                             </span><br/>
                             <span>
-                              {item.Class != null ? (
-                                <Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Class != null ? this.getParsedCode(item.Class.toUpperCase(), 'c') : null}
                               {item.Class != null && item.Teacher != null ? ` - ` : null}
-                              {item.Teacher != null ? (
-                                <Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link>
-                              ) : null}
+                              {item.Teacher != null ? this.getParsedCode(item.Teacher.toUpperCase(), 't') : null}
                             </span><br/>
                             {item.room != null ? (
-                              <span>{item.room.code != null ? `${item.room.code.toUpperCase()}` : null}</span>
+                              <span>{item.room.code != null ? this.getParsedCode(item.room.code.toUpperCase(), 'r') : null}</span>
                             ) : null}
                           </div>
                         } />
