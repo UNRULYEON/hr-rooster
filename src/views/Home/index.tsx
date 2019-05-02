@@ -17,12 +17,23 @@ type Props = {
 type State = {}
 
 class Home extends React.Component<Props, State> {
+
+  getSchedTodayUserType = (settings: any) => {
+    if (settings != null) {
+      let settingsParsed: any = JSON.parse(settings)
+      if (settingsParsed != null) {
+        return settingsParsed.userType == 'Student' ? 1 : 2
+      }
+    }
+    return 1
+  }
+
   public render() {
     return (
       <section className="Home-container">
         <div className="Home-list-container">
           <span className="Home-list-container--subtext">Today's schedule for</span>
-          <ScheduleToday code={this.props.code} type={this.props.userType == 'Student' ? 1 : 2} handleSnackbarOpen={this.props.handleSnackbarOpen} />
+          <ScheduleToday code={this.props.code} type={this.getSchedTodayUserType(localStorage.getItem('settings'))} handleSnackbarOpen={this.props.handleSnackbarOpen} />
         </div>
         {/* <div className="Home-list-container">
           <span className="Home-list-container--subtext">Teachers you're following</span>

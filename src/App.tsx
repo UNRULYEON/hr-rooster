@@ -105,7 +105,7 @@ class App extends React.Component<Props, State> {
     let settings = localStorage.getItem('settings');
     if (settings != null) {
       let settingsParsed: Settings = JSON.parse(settings)
-      if (settings != null) {
+      if (settingsParsed != null) {
         this.setState({
           userType: settingsParsed.userType,
           code: settingsParsed.code,
