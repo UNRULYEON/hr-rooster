@@ -130,8 +130,8 @@ class ScheduleWeek extends React.Component<Props, State> {
     let weekday: number = date.getDay()
     let startDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - (weekday - 1));
     let endDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - (weekday - 5));
-    let startDateString: string = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`;
-    let endDateString: string = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`;
+    let startDateString: string = `${startDate.getFullYear()}-${startDate.getMonth() < 10 ? '0' + (startDate.getMonth() + 1) : startDate.getMonth() + 1}-${startDate.getDate() < 10 ? '0' + startDate.getDate() : startDate.getDate()}`;
+    let endDateString: string = `${endDate.getFullYear()}-${endDate.getMonth() < 10 ? '0' + (endDate.getMonth() + 1) : endDate.getMonth() + 1}-${endDate.getDate() < 10 ? '0' + endDate.getDate() : endDate.getDate()}`;
     return [startDateString, endDateString];
   }
 
@@ -270,8 +270,9 @@ class ScheduleWeek extends React.Component<Props, State> {
 
   formatWeekSelectLabel = (date: Date, invalidLabel: string) => {
     let dates: string[] = this.getWeekDates(new Date(date));
-    let monthNames: any = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
-    return `${new Date(dates[0]).getDate()} ${monthNames[new Date(dates[0]).getMonth()]} - ${new Date(dates[1]).getDate()} ${monthNames[new Date(dates[1]).getMonth()]}`;
+    let monthNames: any = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let label: string = `${new Date(dates[0]).getDate()} ${monthNames[new Date(dates[0]).getMonth()]} - ${new Date(dates[1]).getDate()} ${monthNames[new Date(dates[1]).getMonth()]}`;
+    return label
   };
 
   handleDateChange = (date: any) => {
