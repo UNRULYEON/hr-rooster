@@ -109,6 +109,23 @@ class ScheduleToday extends React.Component<Props, State> {
     this._isMounted = false;
   }
 
+  getParsedCode = (code: string, type: string) => {
+    let regex: RegExp = /(.+?)(?:,|$)/g;
+    let regexParsed: string[] | null = code.match(regex);
+    let parsed: any[] = [];
+    if (regexParsed != null) {
+      for (let i = 0; i < regexParsed.length; i++) {
+        parsed.push(
+          <Link to={`/${type}/${regexParsed[i].replace(/[, ]+/g, " ").trim()}`}>{regexParsed[i].replace(/[, ]+/g, " ").trim()}</Link>
+        )
+        if (regexParsed.length != 1 && i < regexParsed.length - 1) {
+          parsed.push(', ')
+        }
+      }
+    }
+    return parsed
+  }
+
   getTime = (time: string) => {
     if(time.length < 4) {
       return `${time.substring(0,1)}:${time.substring(1,3)}`
@@ -153,7 +170,7 @@ class ScheduleToday extends React.Component<Props, State> {
       <div style={{ width: '-webkit-fill-available' }}>
         <span className="SchedToday--title"><Link to={`/${this.getLink()}/${this.props.code.toUpperCase()}`}>{this.props.code.toUpperCase()}</Link></span>
         {this.state.schedule != null ? (
-            <div className="SchedToday--wrapper" style={{ height: `${this.state.schedule.length > 0 ? this.state.schedule.length * 100 + "px" : '200px'}` }}>
+            <div className="SchedToday--wrapper" style={{ height: `${this.state.schedule.length > 0 ? this.state.schedule.length * 120 + "px" : '200px'}` }}>
               <TransitionGroup>
                 <CSSTransition
                   timeout={350}
@@ -201,16 +218,16 @@ class ScheduleToday extends React.Component<Props, State> {
                             <span className="SchedToday--item-details-subject" style={{ display: 'block' }}>{item.Text}</span>
                           ) : null}
                           {item.Class != null ? (
-                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}><ClassIcon className="SchedToday--item-details-icon" /><Link to={`/c/${item.Class.toUpperCase()}`}>{item.Class.toUpperCase()}</Link></span>
+                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}><ClassIcon className="SchedToday--item-details-icon" />{this.getParsedCode(item.Class.toUpperCase(), 'c')}</span>
                           ) : null}
                           {item.Class != null && item.Teacher != null ? (
                             <span style={{ display: 'inline' }}> - </span>
                           ) : null}
                           {item.Teacher != null ? (
-                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}><Link to={`/t/${item.Teacher.toUpperCase()}`}>{item.Teacher.toUpperCase()}</Link></span>
+                            <span className="SchedToday--item-details-class-teacher" style={{ display: 'inline' }}>{this.getParsedCode(item.Teacher.toUpperCase(), 't')}</span>
                           ) : null}
                           {item.room != null ? (
-                            <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{item.room.code}</span>
+                            <span className="SchedToday--item-details-room"><LocationOnIcon className="SchedToday--item-details-icon" />{this.getParsedCode(item.room.code.toUpperCase(), 'r')}</span>
                           ) : null}
                         </div>
                       </div>
