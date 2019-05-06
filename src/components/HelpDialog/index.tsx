@@ -16,6 +16,12 @@ import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 
+// Images
+import TodayViewLayoutImg from '../../img/png/today_view_layout.png';
+import TodayViewLayoutCurrentImg from '../../img/png/today_view_layout_current.png';
+import WeekListImg from '../../img/png/week-list.png';
+import HowToReadRoomImg from '../../img/png/how-to-read-rooms.png';
+
 type Props = {
   fullScreen: boolean,
   open: boolean,
@@ -146,9 +152,9 @@ class HelpDialog extends React.Component<Props, State> {
             type: 'image',
             data: {
               file: {
-                url: 'https://picsum.photos/1400/1300'
+                url: TodayViewLayoutImg
               },
-              caption: `Figre 1. Example of a lesson in the today view`
+              caption: `Figure 1. Example of a lesson in the today view`
             }
           },
           {
@@ -167,7 +173,7 @@ class HelpDialog extends React.Component<Props, State> {
             type: 'image',
             data: {
               file: {
-                url: 'https://picsum.photos/1400/1300'
+                url: TodayViewLayoutCurrentImg
               },
               caption: `Figure 2. Example of a current lesson in the today view`
             }
@@ -199,7 +205,7 @@ class HelpDialog extends React.Component<Props, State> {
             type: 'image',
             data: {
               file: {
-                url: 'https://picsum.photos/1400/1300'
+                url: WeekListImg
               },
               caption: `Figure 1. Weekly and list layout`
             }
@@ -242,12 +248,18 @@ class HelpDialog extends React.Component<Props, State> {
             }
           },
           {
+            type: 'image',
+            data: {
+              file: {
+                url: HowToReadRoomImg
+              },
+              caption: `Figure 1. Room code example`
+            }
+          },
+          {
             type: 'paragraph',
             data: {
-              text:
-              `
-                Every room code has dots in it, acting as seperators for the wing, floor and room.
-              `
+              text: "Every room code has dots in it, acting as seperators for the wing, floor and room."
             }
           }
         ]
