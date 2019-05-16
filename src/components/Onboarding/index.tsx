@@ -70,7 +70,13 @@ class Onboarding extends React.Component<Props, State> {
     };
   };
 
-  // Get classes and teachers from API
+  /**
+   * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
+   *
+   * When the help dialog is displayed, the components fetches all the class and teacher codes.
+   *
+   * @memberof Onboarding
+   */
   componentDidMount = () => {
     fetch(`${api}Class?$orderby=Class asc`)
       .then(res => res.json())
@@ -92,12 +98,21 @@ class Onboarding extends React.Component<Props, State> {
       })
   }
 
-  // Close dialog
+  /**
+   *  Closes the dialog
+   *
+   * @memberof Onboarding
+   */
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
-  // Handle the next click
+
+  /**
+   * Performs checks before moving to the next section
+   *
+   * @memberof Onboarding
+   */
   handleNext = () => {
     let currentStep: number = this.state.currentStep;
     let nextButtonDisabled: boolean = true;
@@ -113,12 +128,14 @@ class Onboarding extends React.Component<Props, State> {
     }));
   };
 
-  // Handle finishing the onboarding
-  handleFinish = () => {
 
-  }
-
-  // Handle the previous click
+  /**
+   * Checks to see which step is the previous one and takes apprioprate action.
+   *
+   * When the previous step is 1, the searchfields and filters are cleared.
+   *
+   * @memberof Onboarding
+   */
   handleBack = () => {
     let currentStep: number = this.state.currentStep;
     let searchfield: string = this.state.searchfield
@@ -146,7 +163,11 @@ class Onboarding extends React.Component<Props, State> {
     }));
   };
 
-  // Handle radio and textfield selects
+  /**
+   * Handle radio and textfield selects
+   *
+   * @memberof Onboarding
+   */
   handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let nextButtonDisabled: boolean = true;
     if (event.target.value != '') {
@@ -158,7 +179,11 @@ class Onboarding extends React.Component<Props, State> {
     } as unknown as Pick<State, keyof State>);
   };
 
-  // Handle search
+  /**
+   * Handles searching through the class or teacher code list
+   *
+   * @memberof Onboarding
+   */
   handleSearch = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let classesFiltered: Array<any> = this.state.classes;
     let teachersFiltered: Array<any> = this.state.teachers;
@@ -181,6 +206,13 @@ class Onboarding extends React.Component<Props, State> {
   };
 
 
+  /**
+   * Returns the content of each step
+   *
+   * @param {number} stepIndex
+   * @returns
+   * @memberof Onboarding
+   */
   getStepContent(stepIndex: number) {
     switch (stepIndex) {
       case 0:

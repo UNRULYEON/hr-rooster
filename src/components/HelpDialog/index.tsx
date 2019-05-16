@@ -128,12 +128,22 @@ class HelpDialog extends React.Component<Props, State> {
     };
   };
 
+  /**
+   * This function changes the active panels
+   *
+   * @memberof HelpDialog
+   */
   handlePanelChange = (panel: any) => (event: any, expanded: any) => {
     this.setState({
       expanded: expanded ? panel : false,
     });
   };
 
+  /**
+   * This function returns the contents of the different help panels.
+   *
+   * @memberof HelpDialog
+   */
   getContent = () : Help[] => {
     return [
       {

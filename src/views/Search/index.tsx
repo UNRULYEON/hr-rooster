@@ -9,6 +9,7 @@ import EmptyState from '../../components/EmptyState'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
+// Theme for the class pill filter
 const ClassTheme = createMuiTheme({
   palette: {
     primary: {main: '#ff0000'},
@@ -18,6 +19,7 @@ const ClassTheme = createMuiTheme({
   typography: { useNextVariants: true },
 });
 
+// Theme for the teacher pill filter
 const TeacherTheme = createMuiTheme({
   palette: {
     primary: {main: '#0048ff'},
@@ -27,6 +29,7 @@ const TeacherTheme = createMuiTheme({
   typography: { useNextVariants: true },
 });
 
+// Theme for the room pill filter
 const RoomTheme = createMuiTheme({
   palette: {
     primary: {main: '#00a821'},
@@ -70,6 +73,16 @@ class Search extends React.Component<Props, State> {
     };
   }
 
+
+  /**
+   * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
+   *
+   * Checks if the searchbar is toggled when this page is displayed. If not, the searchbar is toggled
+   *
+   * Checks of there is a query in the url.
+   *
+   * @memberof Search
+   */
   componentDidMount = () => {
     if (!this.props.searchbar) {
       this.props.toggleSearchbar()
@@ -81,6 +94,13 @@ class Search extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as cancelled network requests, or cleaning up any DOM elements created in componentDidMount.
+   *
+   * When the user moves away from the search page, the searchfield is cleared and the searchbar is toggled.
+   *
+   * @memberof Search
+   */
   componentWillUnmount = () => {
     this.setState({
       searched: false
@@ -90,6 +110,11 @@ class Search extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * This function is run when the user presses enter when the searchfield is active. If the searchfield is not empty, the results will be fetched.
+   *
+   * @memberof Search
+   */
   eQ = () => {
     if (this.props.q != '') {
       this.setState({
@@ -113,6 +138,11 @@ class Search extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * This function queries the API with the query as searchterm
+   *
+   * @memberof Search
+   */
   fetchClasses = async (query: string) => {
     let result: Array<string> = []
     await fetch(`https://api.hr-rooster.nl/Class?$filter=contains(tolower(Class), tolower('${query}'))`)
@@ -128,6 +158,11 @@ class Search extends React.Component<Props, State> {
     })
   }
 
+  /**
+   * This function queries the API with the query as searchterm
+   *
+   * @memberof Search
+   */
   fetchTeachers = async (query: string) => {
     let result: Array<string> = []
     await fetch(`https://api.hr-rooster.nl/Teacher?$filter=contains(tolower(Teacher), tolower('${query}'))`)
@@ -143,6 +178,11 @@ class Search extends React.Component<Props, State> {
     })
   }
 
+  /**
+   * This function queries the API with the query as searchterm
+   *
+   * @memberof Search
+   */
   fetchRooms = async (query: string) => {
     let result: Array<string> = []
     await fetch(`https://api.hr-rooster.nl/Room?$filter=contains(tolower(Room), tolower('${query}'))`)

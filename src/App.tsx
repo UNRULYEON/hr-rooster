@@ -31,6 +31,12 @@ import posed from 'react-pose';
 // Images
 import logo from './img/svg/hr-logo.svg';
 
+
+/**
+ * Types for the settings which are saved in the local storage
+ *
+ * @interface Settings
+ */
 interface Settings {
   userType: string,
   code: string,
@@ -41,6 +47,11 @@ interface Settings {
 
 export interface Props {}
 
+/**
+ * Types for the state
+ *
+ * @interface State
+ */
 interface State {
   userType: string,
   code: string,
@@ -55,6 +66,7 @@ interface State {
   snackbarMessage: string,
 }
 
+// This is the searchbar container with animation as of the docs of Posed
 const Searchbar = posed.div({
   visible: {
     opacity: 1,
@@ -72,10 +84,11 @@ const Searchbar = posed.div({
   }
 });
 
+// This is the theme for the searchbar
 const themeSearchbar = createMuiTheme({
   palette: {
-    primary: { main: '#000000' }, // Purple and green play nicely together.
-    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+    primary: { main: '#000000' },
+    secondary: { main: '#11cb5f' },
   },
   typography: { useNextVariants: true },
 });
@@ -101,6 +114,14 @@ class App extends React.Component<Props, State> {
     this.searchPage = React.createRef();
   }
 
+  
+  /**
+   * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
+   *
+   * Checks of settings is saved in the local storage. If it is, it's read and saved in the state
+   *
+   * @memberof App
+   */
   componentDidMount = () => {
     let settings = localStorage.getItem('settings');
     if (settings != null) {
@@ -117,6 +138,11 @@ class App extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Funtions for saving the onboarding settings. Is called from the Onboarding component
+   *
+   * @memberof App
+   */
   saveOnboardingSettings = (userType: string, classCode: string, teacherCode: string) => {
     let code: string;
     if (userType == "Student") {
@@ -142,16 +168,31 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('settings', JSON.stringify(settings));
   }
 
+  /**
+   * This function handles changes of text fields and selectors
+   *
+   * @memberof App
+   */
   handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [name]: event.target.value,
     } as unknown as Pick<State, keyof State>);
   };
 
+  /**
+   * Function for displaying the snackbar
+   *
+   * @memberof App
+   */
   handleSnackbarOpen = (message: string) => {
     this.setState({ snackbar: true, snackbarMessage: message });
   };
 
+  /**
+   * Function for hiding the snackbar
+   *
+   * @memberof App
+   */
   handleSnackbarClose = (reason: any) => {
     if (reason === 'clickaway') {
       return;
@@ -160,6 +201,11 @@ class App extends React.Component<Props, State> {
     this.setState({ snackbar: false });
   };
 
+  /**
+   * Function for changes the code. Is called from the SettingsDialog component
+   *
+   * @memberof App
+   */
   handleCodeChange = (name: string, value: string) => {
     this.setState({
       code: value
@@ -176,12 +222,22 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('settings', JSON.stringify(settings));
   }
 
+  /**
+   * Funtion for resetting the current settings that is saved in the local storage and reloads the website, triggering the check for a new user.
+   *
+   * @memberof App
+   */
   handleResetSettings = () => {
     localStorage.removeItem('settings');
     localStorage.removeItem('new_user');
     location.reload();
   }
 
+  /**
+   * Toggles between displaying the searchbar and redirecting to the search page
+   *
+   * @memberof App
+   */
   toggleSearchbarAndRedirect = (history: any) => {
     if (!this.state.searchbar) {
       // Go to search
@@ -201,12 +257,22 @@ class App extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * This function is triggered when the user presses the enter enter key when the searchfield is in focus
+   *
+   * @memberof App
+   */
   keyPress = (e: any) => {
 		if(e.keyCode === 13){
       this.searchPage.current.eQ()
     }
   }
 
+  /**
+   * Toggles only the searchbar
+   *
+   * @memberof App
+   */
   toggleSearchbar = () => {
     this.setState({
       searchbar: !this.state.searchbar,
@@ -214,10 +280,20 @@ class App extends React.Component<Props, State> {
     })
   }
 
+  /**
+   * Toggles the settings dialog
+   *
+   * @memberof App
+   */
   toggleSettingsDialog = () => {
     this.setState({ settingsDialogOpen: !this.state.settingsDialogOpen })
   }
 
+  /**
+   * Toggles the help dialog
+   *
+   * @memberof App
+   */
   toggleHelpDialog = () => {
     this.setState({ helpDialogOpen: !this.state.helpDialogOpen })
   }

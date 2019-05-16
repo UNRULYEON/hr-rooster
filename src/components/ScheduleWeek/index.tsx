@@ -59,11 +59,23 @@ class ScheduleWeek extends React.Component<Props, State> {
 
   _isMounted = false;
 
+  /**
+   * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
+   *
+   * If the props has a code, this function fetches the data.
+   *
+   * @memberof ScheduleWeek
+   */
   componentDidMount = () => {
     this._isMounted = true;
     if (this.props.code != "") {this.getDate(new Date())}
   }
 
+  /**
+   * This funcion fetches the data for this week and splits the days in it's own array and saves it in the state.
+   *
+   * @memberof ScheduleWeek
+   */
   getDate = (date: Date) => {
     let dates: Array<string> = this.getWeekDates(date)
     let url: string = `https://cors-anywhere.herokuapp.com/${api}${this.props.code}&type=${this.props.type}&startDate=${dates[0]}&endDate=${dates[1]}&json`
@@ -126,6 +138,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     this._isMounted = false;
   }
 
+  /**
+   * This function returns the date when it's monday and friday based on the supplied date.
+   *
+   * @memberof ScheduleWeek
+   */
   getWeekDates = (date: Date) => {
     let weekday: number = date.getDay()
     let startDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - (weekday - 1));
@@ -135,6 +152,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return [startDateString, endDateString];
   }
 
+  /**
+   * This function return the dates of the week.
+   *
+   * @memberof ScheduleWeek
+   */
   getWeekNumbers = (date: Date, pos: number) => {
     let weekday: number = date.getDay()
     let newDate: Date = new Date(date.getFullYear(), date.getMonth(), (date.getDate() - (weekday - 1)) + pos)
@@ -149,6 +171,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return item
   }
 
+  /**
+   * Checks if it's the current lesson on load in the week view and returns a class if it is.
+   *
+   * @memberof ScheduleWeek
+   */
   isCurrentLessonWeek = (s: string, e: string) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);
@@ -160,6 +187,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Checks if it's the current lesson on load in the list view and returns a class if it is.
+   *
+   * @memberof ScheduleWeek
+   */
   isCurrentLesson = (s: string, e: string, d: string) => {
     if (new Date(d).getDate() == new Date().getDate()) {
       let start: number = parseInt(s);
@@ -174,6 +206,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return ""
   }
 
+  /**
+   * This function returns an array with the schedule elements.
+   *
+   * @memberof ScheduleWeek
+   */
   getSched = () => {
     let res: Array<any> = [];
     let week: Array<any> = [this.state.monday, this.state.tuesday, this.state.wednesday, this.state.thursday, this.state.friday]
@@ -227,6 +264,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return res;
   }
 
+  /**
+   * This function returns borders that go behind the actuall schedule.
+   *
+   * @memberof ScheduleWeek
+   */
   getSchedBorders = () => {
     let arr: Array<any> = []
     for (let i = 1; i < 7; i++) {
@@ -243,6 +285,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return arr
   }
 
+  /**
+   * Returns the time with a : inbetween the hours and minutes
+   *
+   * @memberof ScheduleWeek
+   */
   getListTime = (time: string) => {
     if(time.length < 4) {
       return `${time.substring(0,1)}:${time.substring(1,3)}`
@@ -251,6 +298,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Accepts a string with multiple codes and returns an array with Link elements.
+   *
+   * @memberof ScheduleWeek
+   */
   getParsedCode = (code: string, type: string) => {
     let regex: RegExp = /(.+?)(?:,|$)/g;
     let regexParsed: string[] | null = code.match(regex);
@@ -268,6 +320,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return parsed
   }
 
+  /**
+   * Returns a formatted label for the date picker.
+   *
+   * @memberof ScheduleWeek
+   */
   formatWeekSelectLabel = (date: Date, invalidLabel: string) => {
     let dates: string[] = this.getWeekDates(new Date(date));
     let monthNames: any = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -275,6 +332,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     return label
   };
 
+  /**
+   * Changes the date when a different date is selected in the date picker.
+   *
+   * @memberof ScheduleWeek
+   */
   handleDateChange = (date: any) => {
     if (new Date(date).getDate() != this.state.currentDate.getDate() || new Date(date).getMonth() != this.state.currentDate.getMonth() || new Date(date).getFullYear() != this.state.currentDate.getFullYear()) {
       this.setState({
@@ -285,6 +347,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Changes the date to one week before the current selected date.
+   *
+   * @memberof ScheduleWeek
+   */
   handleDateChangePrev = () => {
     let newDate: Date = new Date(this.state.currentDate.getFullYear(), this.state.currentDate.getMonth(), this.state.currentDate.getDate() - 7);
     this.setState({
@@ -294,6 +361,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     this.getDate(newDate)
   }
 
+  /**
+   * Changes the date to one week after the current selected date.
+   *
+   * @memberof ScheduleWeek
+   */
   handleDateChangeNext = () => {
     let newDate: Date = new Date(this.state.currentDate.getFullYear(), this.state.currentDate.getMonth(), this.state.currentDate.getDate() + 7);
     this.setState({
@@ -303,6 +375,11 @@ class ScheduleWeek extends React.Component<Props, State> {
     this.getDate(newDate)
   }
 
+  /**
+   * Changes between the week and list view
+   *
+   * @memberof ScheduleWeek
+   */
   handleTabChange = (event: any, tab: any) => {
     this.setState({ tab });
   };

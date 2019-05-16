@@ -56,6 +56,11 @@ class ScheduleToday extends React.Component<Props, State> {
 
   _isMounted = false
 
+  /**
+   * When this component is mounted and the code in the props is not empty, it fetched data with the code.
+   *
+   * @memberof ScheduleToday
+   */
   componentDidMount = () => {
     this._isMounted = true;
     if (this.props.code != "") {
@@ -83,6 +88,11 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * This only runs when the user finishes the onboarding. Fetches data with the code.
+   *
+   * @memberof ScheduleToday
+   */
   componentWillReceiveProps = (nextProps: Readonly<Props>) => {
     if (nextProps.code != this.props.code) {
       let today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
@@ -109,6 +119,11 @@ class ScheduleToday extends React.Component<Props, State> {
     this._isMounted = false;
   }
 
+  /**
+   * Accepts a string with multiple codes and returns an array with Link elements.
+   *
+   * @memberof ScheduleToday
+   */
   getParsedCode = (code: string, type: string) => {
     let regex: RegExp = /(.+?)(?:,|$)/g;
     let regexParsed: string[] | null = code.match(regex);
@@ -126,6 +141,11 @@ class ScheduleToday extends React.Component<Props, State> {
     return parsed
   }
 
+  /**
+   * Returns the time with a : inbetween the hours and minutes
+   *
+   * @memberof ScheduleToday
+   */
   getTime = (time: string) => {
     if(time.length < 4) {
       return `${time.substring(0,1)}:${time.substring(1,3)}`
@@ -134,6 +154,11 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Returns a type based on what's in the props.
+   *
+   * @memberof ScheduleToday
+   */
   getLink = () => {
     switch (this.props.type) {
       case 1:
@@ -147,6 +172,11 @@ class ScheduleToday extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Checks if it's the current lesson. If so, this function returns a class with a circle
+   *
+   * @memberof ScheduleToday
+   */
   isCurrentLesson = (s: string, e: string, type: number) => {
     let start: number = parseInt(s);
     let end: number = parseInt(e);

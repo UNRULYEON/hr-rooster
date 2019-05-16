@@ -68,6 +68,11 @@ class SettingsDialog extends React.Component<Props, State> {
     };
   };
 
+  /**
+   * Fetches the class and teacher codes on load
+   *
+   * @memberof SettingsDialog
+   */
   componentDidMount = () => {
     fetch(`${api}Class?$orderby=Class asc`)
       .then(res => res.json())
@@ -89,14 +94,20 @@ class SettingsDialog extends React.Component<Props, State> {
       })
   }
 
+  /**
+   * Changes between the different tabs
+   *
+   * @memberof SettingsDialog
+   */
   handleTabChange = (event: any, tab: number) => {
     this.setState({ tab });
   };
 
-  handleTabChangeIndex = (index: any) => {
-    this.setState({ tab: index });
-  };
-
+  /**
+   * Handle radio and textfield selects
+   *
+   * @memberof SettingsDialog
+   */
   handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [name]: event.target.value,
@@ -104,6 +115,11 @@ class SettingsDialog extends React.Component<Props, State> {
     this.props.handleCodeChange(name, event.target.value)
   };
 
+  /**
+   * Resets the current settings
+   *
+   * @memberof SettingsDialog
+   */
   handleReset = () => {
     this.setState({
       loadingResetButton: true
@@ -111,7 +127,11 @@ class SettingsDialog extends React.Component<Props, State> {
     this.props.handleResetSettings()
   }
 
-  // Handle search
+  /**
+   * Searches through the class or teacher codes list
+   *
+   * @memberof SettingsDialog
+   */
   handleSearch = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     let classesFiltered: Array<any> = this.state.classes;
     let teachersFiltered: Array<any> = this.state.teachers;
