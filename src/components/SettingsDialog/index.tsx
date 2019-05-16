@@ -78,7 +78,6 @@ class SettingsDialog extends React.Component<Props, State> {
           classesFiltered: data.value,
         })
       })
-      .catch(err => console.log(err))
     fetch(`${api}Teacher?$orderby=Teacher asc`)
       .then(res => res.json())
       .then(data => {
@@ -88,7 +87,6 @@ class SettingsDialog extends React.Component<Props, State> {
           teachersFiltered: data.value,
         })
       })
-      .catch(err => console.log(err))
   }
 
   handleTabChange = (event: any, tab: number) => {

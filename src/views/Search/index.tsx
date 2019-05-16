@@ -91,7 +91,6 @@ class Search extends React.Component<Props, State> {
   }
 
   eQ = () => {
-    console.log(`Quering: ${this.props.q}`)
     if (this.props.q != '') {
       this.setState({
         searched: true
@@ -119,7 +118,6 @@ class Search extends React.Component<Props, State> {
     await fetch(`https://api.hr-rooster.nl/Class?$filter=contains(tolower(Class), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
-        console.log(res.value)
         for (let i = 0; i < res.value.length; i++) {
           result.push(res.value[i]);
         }
@@ -135,7 +133,6 @@ class Search extends React.Component<Props, State> {
     await fetch(`https://api.hr-rooster.nl/Teacher?$filter=contains(tolower(Teacher), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
-        console.log(res.value)
         for (let i = 0; i < res.value.length; i++) {
           result.push(res.value[i]);
         }
@@ -151,7 +148,6 @@ class Search extends React.Component<Props, State> {
     await fetch(`https://api.hr-rooster.nl/Room?$filter=contains(tolower(Room), tolower('${query}'))`)
       .then(res => res.json())
       .then(res => {
-        console.log(res.value)
         for (let i = 0; i < res.value.length; i++) {
           result.push(res.value[i]);
         }

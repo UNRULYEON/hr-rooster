@@ -203,7 +203,6 @@ class App extends React.Component<Props, State> {
 
   keyPress = (e: any) => {
 		if(e.keyCode === 13){
-      console.log('value:', e.target.value);
       this.searchPage.current.eQ()
     }
   }
