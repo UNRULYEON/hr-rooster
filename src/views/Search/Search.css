@@ -23,3 +23,12 @@
   padding: 20px 10px;
   border-bottom: 1px solid #555555;
 }
+
+.Search--link {
+  display: block;
+  border-bottom: none;
+}
+
+.Search--link:hover {
+  border-bottom: none;
+}

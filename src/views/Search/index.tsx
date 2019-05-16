@@ -201,7 +201,7 @@ class Search extends React.Component<Props, State> {
           {this.state.ClassRes.length > 0 && !this.state.ClassFilter && !this.state.TeacherFilter && !this.state.RoomFilter || this.state.ClassRes.length > 0 && this.state.ClassFilter ? (
             <div className="Search--class-container">
               {this.state.ClassRes.map(item => (
-                <Link to={`/c/${item.Class}`} replace>
+                <Link to={`/c/${item.Class}`} className="Search--link" replace>
                   <div key={item.Class} className="Search--class-item-container">{item.Class}</div>
                 </Link>
               ))}
@@ -210,7 +210,7 @@ class Search extends React.Component<Props, State> {
           {this.state.TeacherRes.length > 0 && !this.state.ClassFilter && !this.state.TeacherFilter && !this.state.RoomFilter || this.state.TeacherRes.length > 0 && this.state.TeacherFilter ? (
             <div className="Search--teacher-container">
               {this.state.TeacherRes.map(item => (
-                <Link to={`/t/${item.Teacher}`} replace>
+                <Link to={`/t/${item.Teacher}`}className="Search--link"  replace>
                   <div key={item.Teacher} className="Search--teacher-item-container">{item.Teacher}</div>
                 </Link>
               ))}
@@ -219,7 +219,7 @@ class Search extends React.Component<Props, State> {
           {this.state.RoomRes.length > 0 && !this.state.ClassFilter && !this.state.TeacherFilter && !this.state.RoomFilter || this.state.RoomRes.length > 0  && this.state.RoomFilter ? (
             <div className="Search--room-container">
               {this.state.RoomRes.map(item => (
-                <Link to={`/r/${item.Room}`} replace>
+                <Link to={`/r/${item.Room}`}className="Search--link"  replace>
                   <div key={item.Room} className="Search--room-item-container">{item.Room}</div>
                 </Link>
               ))}
