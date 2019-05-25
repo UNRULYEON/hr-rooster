@@ -1,5 +1,4 @@
 <!-- PROJECT LOGO -->
-<br />
 <p align="center">
   <a href="https://github.com/UNRULYEON/hr-rooster">
     <img src="/src/img/svg/hr-logo-english.svg" alt="Logo" width="200">
@@ -13,7 +12,7 @@
 
 # HR Rooster
 
-![Homepage]( "Homepage")
+![Homepage](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots/homepage.jpg?raw=true "Homepage")
 
 This was a school project where I was fed up with the way Rotterdam University handled their timetables for students and teachers.
 
@@ -23,9 +22,9 @@ This project focuses on:
 * A faster way of looking up you're timetable for today
 * Improved searchability of the teachers, students and rooms
 
-<!-- Screenshots of the webshop can be found [here]() ([ZIP]()) and of the admin panel [here]() ([ZIP]()) -->
+Screenshots can be found [here](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots) ([ZIP](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots/hr-rooster-screenshots.zip)).
 
-### Built With
+## Built With
 
 * [ReactJS](https://reactjs.org)
 * [TypeScript](https://www.typescriptlang.org)
