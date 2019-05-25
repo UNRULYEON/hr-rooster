@@ -12,7 +12,7 @@
 
 # HR Rooster
 
-![Homepage](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots/homepage.jpg?raw=true "Homepage")
+![Homepage](https://github.com/UNRULYEON/hr-rooster/blob/master/screenshots/homepage.jpg?raw=true "Homepage")
 
 This was a school project where I was fed up with the way Rotterdam University handled their timetables for students and teachers.
 
@@ -22,7 +22,7 @@ This project focuses on:
 * A faster way of looking up you're timetable for today
 * Improved searchability of the teachers, students and rooms
 
-Screenshots can be found [here](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots) ([ZIP](https://github.com/UNRULYEON/INFPRJ01C/blob/master/screenshots/hr-rooster-screenshots.zip)).
+Screenshots can be found [here](https://github.com/UNRULYEON/hr-rooster/blob/master/screenshots) ([ZIP](https://github.com/UNRULYEON/hr-rooster/blob/master/screenshots/hr-rooster-screenshots.zip)).
 
 ## Built With
 
