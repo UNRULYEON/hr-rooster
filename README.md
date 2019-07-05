@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/UNRULYEON/hr-rooster">
-    <img src="https://github.com/UNRULYEON/hr-rooster/blob/master/src/img/svg/hr-logo-english.svg" alt="Logo" width="200">
+    <img src="https://github.com/UNRULYEON/hr-rooster/blob/master/src/img/png/hr-logo-english.png?raw=true" alt="Logo" width="200">
   </a>
 
   <h3 align="center">HR Rooster</h3>
